@@ -1,22 +1,5 @@
 module ActiveCucumber
 
-  # Compares ActiveRecord objects with Cucumber tables,
-  # visualizes the differences intuitively as a Cucumber table diff.
-  #
-  # Comparing a single record against a vertical Cucumber table:
-  #   Cucumparer.diff_one! record, table
-  #
-  # Verifying all records in the database against a horizontal Cucumber table:
-  #   Cucumparer.diff_all! class, table
-  #
-  # Cucumparer compares only the attributes in the table,
-  # and ignores the ones not listed.
-  #
-  # To customize how attributes of the ActiveRecord object are serialized,
-  # you can create a "Cucumberator" decorator for your ActiveRecord classes
-  # that defines converter functions for the problematic attributes.
-  # Cucumberator automatically uses the decorator for the "User" class
-  # if you name it "UserCucumberator".
   class Cucumparer
 
     def initialize clazz, cucumber_table
