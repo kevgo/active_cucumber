@@ -16,6 +16,11 @@ the ones not listed are ignored.
 
 ### diff_one!
 
+<img width="385"
+     height="144"
+     alt="image of a mismatching vertical Cucumber table"
+     src="documentation/vertical_diff.png">
+
 `ActiveCucumber.diff_one!` compares the given ActiveRecord entry with the given
 _vertical_ Cucumber table.
 These tables have their headers on the left side, and are used to describe
@@ -40,6 +45,11 @@ end
 
 
 ### diff_all!
+
+<img width="431"
+     height="95"
+     alt="image of a mismatching vertical Cucumber table"
+     src="documentation/horizontal_diff.png">
 
 `ActiveCucumber.diff_all!` verifies that the given _horizontal_ Cucumber table
 describes all existing database entries of the given class.
@@ -80,7 +90,8 @@ for attribute values into the format used in the Cucumber table.
 ```ruby
 class EpisodeCucumberator < Cucumberator
 
-  # In the SHOW column, print the name of the show of the episode truncated
+  # In the SHOW column, print the name of the associated show object,
+  # truncated to 10 characters
   def value_of_show
     show.name.truncate 10
   end
