@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'activerecord'
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'cucumber'
+  s.add_development_dependency 'cucumber_lint'
   s.add_development_dependency 'mortadella'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rubocop'
