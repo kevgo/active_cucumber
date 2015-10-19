@@ -1,4 +1,4 @@
-# ActiveCucumber
+# ActiveCucumber [![Circle CI](https://circleci.com/gh/Originate/active_cucumber.svg?style=shield)](https://circleci.com/gh/Originate/active_cucumber)
 
 High-level Cucumber helpers for testing
 [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html)-based
