@@ -6,6 +6,10 @@ machine:
   ruby:
     version: 2.2.3
 
+notify:
+  webhooks:
+    - url: https://xrayci.kap.la/webhooks/builds
+
 test:
   override:
     - bundle exec rake
