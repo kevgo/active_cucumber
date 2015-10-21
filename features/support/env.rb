@@ -2,12 +2,17 @@ require 'active_record'
 require 'sqlite3'
 require 'mortadella'
 require 'active_cucumber'
+require 'factory_girl'
+require 'faker'
+require 'kappamaki'
+require 'rspec/collection_matchers'
 
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
   database: ':memory:'
 )
+
 
 ActiveRecord::Schema.define do
   create_table :shows, force: true do |t|
@@ -23,7 +28,26 @@ ActiveRecord::Schema.define do
   end
 end
 
+
+FactoryGirl.define do
+  factory :show do
+    name { Faker::Book.title }
+  end
+
+  factory :episode do
+    name { Faker::Book.title }
+    year { 1960 + rand(40) }
+    show
+  end
+end
+
+
 Before do
   Show.delete_all
   Episode.delete_all
+  @error_checked = false
+end
+
+After do
+  expect(@error_happened).to be false unless @error_checked
 end

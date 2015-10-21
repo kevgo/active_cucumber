@@ -1,8 +1,22 @@
 require 'active_cucumber/cucumparer'
 require 'active_cucumber/cucumberator'
+require 'active_cucumber/cureator'
 
 # The main namespace for this gem
 module ActiveCucumber
+
+  # Creates entries of the given ActiveRecord class
+  # specified by the given Cucumber table
+  def self.create_many activerecord_class, cucumber_table
+    Cureator.for(activerecord_class).create_records ActiveCucumber.horizontal_table(cucumber_table)
+  end
+
+  # Creates an entry of the given ActiveRecord class
+  # specified by the given Cucumber table
+  def self.create_one activerecord_class, cucumber_table
+    Cureator.for(activerecord_class).create_record ActiveCucumber.vertical_table(cucumber_table)
+  end
+
 
   # Verifies that the database table for the given ActiveRecord class
   # matches the given horizontal Cucumber table.
@@ -13,10 +27,24 @@ module ActiveCucumber
     cucumber_table.diff! cucumparer.to_horizontal_table
   end
 
+
   # Verifies that the given object matches the given vertical Cucumber table
   def self.diff_one! object, cucumber_table
     cucumparer = Cucumparer.new object.class, cucumber_table
     cucumber_table.diff! cucumparer.to_vertical_table(object)
   end
+
+
+  # Returns the given horizontal Cucumber table in standardized format
+  def self.horizontal_table table
+    table.hashes
+  end
+
+
+  # Returns the given vertical Cucumber table in standardized format
+  def self.vertical_table table
+    table.rows_hash
+  end
+
 
 end

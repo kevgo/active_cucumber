@@ -1,41 +1,55 @@
 Given(/^the TV episode:$/) do |table|
-  data = table.rows_hash
+  data = ActiveCucumber.vertical_table table
   show = Show.find_or_create_by name: data['SHOW']
   @episode = show.episodes.create name: data['NAME'], year: data['YEAR']
 end
 
 
 Given(/^the TV episodes:$/) do |table|
-  table.map_headers! { |header| header.downcase.to_sym }
-  table.hashes.each do |row|
-    show = Show.find_or_create_by name: row[:show]
-    show.episodes.create name: row[:name], year: row[:year]
+  ActiveCucumber.horizontal_table(table).each do |row|
+    show = Show.find_or_create_by name: row['SHOW']
+    show.episodes.create name: row['NAME'], year: row['YEAR']
   end
 end
 
 
 
-# rubocop:disable Lint/UnusedBlockArgument
 Then(/^running "([^"]+)" with this table:$/) do |code, table|
+  @previous_table = table
   begin
-    @exception = false
+    @error_happened = false
     @result = eval code
   rescue StandardError => e
-    @exception = true
+    @error_happened = true
     @error_message = e.message
+    @exception = e
   end
 end
-# rubocop:enable Lint/UnusedBlockArgument
 
 
-Then(/^the test passes$/) do
-  p @error_message if @expectation == true
-  expect(@exception).to be false
+Then(/^the database contains the given episode$/) do
+  expect(Episode).to have(1).instance
+  ActiveCucumber.diff_one! Episode.first, @previous_table
 end
 
 
-Then(/^the test fails$/) do
-  expect(@exception).to be true
+Then(/^the database contains the given episodes$/) do
+  ActiveCucumber.diff_all! Episode, @previous_table
+end
+
+
+Then(/^the database contains the shows? (.+)$/) do |show_names|
+  expect(Show.all.map(&:name)).to match Kappamaki.from_sentence show_names
+end
+
+
+Then(/^the test (passes|fails)$/) do |expected_result|
+  @error_checked = true
+  if expected_result == 'passes' && @error_happened
+    p @error_message
+    p @exception
+  end
+  expect(@error_happened).to be expected_result != 'passes'
 end
 
 
