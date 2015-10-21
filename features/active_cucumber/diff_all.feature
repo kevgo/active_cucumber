@@ -1,4 +1,4 @@
-Feature: Cucumparer.diff_all!
+Feature: ActiveCucumber.diff_all!
 
   As a Cucumber user
   I want to verify all existing records using a Cucumber table

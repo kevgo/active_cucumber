@@ -1,4 +1,4 @@
-Feature: Cucumparer.diff_one!
+Feature: ActiveCucumber.diff_one!
 
   As a Cucumber user
   I want to verify a single record using a detailed Cucumber table
