@@ -18,7 +18,7 @@ module ActiveCucumber
     #
     # Assumes a horizontal Cucumber table.
     def create_records table
-      table.each do |row|
+      table.map do |row|
         create_record row
       end
     end
