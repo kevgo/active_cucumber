@@ -6,7 +6,7 @@ class EpisodeCureator < ActiveCucumber::Cureator
 
   def value_for_genre genre_name
     @genre = Genre.find_by(name: genre_name) || FactoryGirl.create(:genre, name: genre_name)
-    self.delete :genre
+    delete :genre
   end
 
 end

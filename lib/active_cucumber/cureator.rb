@@ -14,12 +14,11 @@ module ActiveCucumber
     def factorygirl_attributes
       symbolize_attributes!
       @attributes.each do |key, value|
-        if respond_to?(method = method_name(key))
-          if (result = send method, value)
-            @attributes[key] = result if @attributes.key? key
-          else
-            @attributes.delete key
-          end
+        next unless respond_to?(method = method_name(key))
+        if (result = send method, value)
+          @attributes[key] = result if @attributes.key? key
+        else
+          @attributes.delete key
         end
       end
     end
