@@ -1,62 +1,36 @@
 module ActiveCucumber
 
-  # Creates ActiveRecord entries
+  # Converts an attributes hash in Cucumber format
+  # into a hash consumable by FactoryGirl
+  #
+  # Subclasses define methods to convert particular fields.
   class Cureator
 
-    # Returns the Cureator instance for the given ActiveRecord class.
-    def self.for activerecord_class
-      cureator_class(activerecord_class).new activerecord_class
+    def initialize attributes
+      @attributes = attributes
     end
 
-
-    def initialize activerecord_class
-      @clazz = activerecord_class
-    end
-
-
-    # Creates all entries in the given Cucumber table
-    #
-    # Assumes a horizontal Cucumber table.
-    def create_records table
-      table.map do |row|
-        create_record row
+    # Returns the FactoryGirl version of this Cureator's attributes
+    def factorygirl_attributes
+      symbolize_attributes!
+      @attributes.each do |key, value|
+        if respond_to?(method = method_name(key))
+          if (result = send method, value)
+            @attributes[key] = result if @attributes.key? key
+          else
+            @attributes.delete key
+          end
+        end
       end
-    end
-
-
-    # Creates a new record in the database,
-    # of the given class, with the given Cucumber-formatted String attributes.
-    def create_record attributes
-      FactoryGirl.create @clazz, factorygirl_row(symbolized_hash(attributes))
     end
 
 
   private
 
-    # Returns the Cucumberator subclass to be used by this Cucumparer instance
-    def self.cureator_class activerecord_class
-      cureator_class_name(activerecord_class).constantize
-    rescue NameError
-      Cureator
-    end
-
-
-    # Returns the name of the Cucumberator subclass to be used by this Cucumparer instance.
-    def self.cureator_class_name activerecord_class
-      "#{activerecord_class.name}Cureator"
-    end
-
-
-    # Returns the given row, with values converted to FactoryGirl format
-    #
-    # Assumes the keys of the row are hashes
-    def factorygirl_row row
-      {}.tap do |result|
-        row.each do |key, value|
-          method = method_name key
-          result[key] = respond_to?(method) ? send(method, value) : value
-        end
-      end
+    def method_missing method_name, *arguments
+      # This is necessary so that a Cureator subclass can access
+      # methods of @attributes as if they were its own.
+      @attributes.send method_name, *arguments
     end
 
 
@@ -68,14 +42,14 @@ module ActiveCucumber
 
     # Converts the key given in Cucumber format into FactoryGirl format
     def normalized_key key
-      key.downcase.parameterize.underscore
+      key.downcase.parameterize.underscore.to_sym
     end
 
 
-    # Returns a new hash with the keys normalized to symbols
-    def symbolized_hash row
-      {}.tap do |result|
-        row.each do |key, value|
+    # Makes the keys on @attributes be normalized symbols
+    def symbolize_attributes!
+      @attributes = {}.tap do |result|
+        @attributes.each do |key, value|
           result[normalized_key key] = value
         end
       end

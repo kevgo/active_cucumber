@@ -1,20 +1,23 @@
 require 'active_cucumber/cucumparer'
 require 'active_cucumber/cucumberator'
+require 'active_cucumber/creator'
 require 'active_cucumber/cureator'
 
 # The main namespace for this gem
 module ActiveCucumber
 
   # Creates entries of the given ActiveRecord class
-  # specified by the given Cucumber table
+  # specified by the given horizontal Cucumber table
   def self.create_many activerecord_class, cucumber_table
-    Cureator.for(activerecord_class).create_records ActiveCucumber.horizontal_table(cucumber_table)
+    creator = Creator.new activerecord_class
+    creator.create_many ActiveCucumber.horizontal_table(cucumber_table)
   end
 
   # Creates an entry of the given ActiveRecord class
-  # specified by the given Cucumber table
+  # specified by the given vertical Cucumber table
   def self.create_one activerecord_class, cucumber_table
-    Cureator.for(activerecord_class).create_record ActiveCucumber.vertical_table(cucumber_table)
+    creator = Creator.new activerecord_class
+    creator.create_record ActiveCucumber.vertical_table(cucumber_table)
   end
 
 
