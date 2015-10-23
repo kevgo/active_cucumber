@@ -6,7 +6,7 @@ Feature: ActiveCucumber.diff_all!
 
 
   Background:
-    Given the TV episodes:
+    Given the episodes:
       | SHOW          | NAME                  | YEAR |
       | Star Trek TNG | Encounter at Farpoint | 1987 |
       | Star Trek TNG | All Good Things       | 1994 |

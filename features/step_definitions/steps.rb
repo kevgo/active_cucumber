@@ -1,15 +1,12 @@
-Given(/^the TV episode:$/) do |table|
-  data = ActiveCucumber.vertical_table table
-  show = Show.find_or_create_by name: data['SHOW']
-  @episode = show.episodes.create name: data['NAME'], year: data['YEAR']
-end
-
-
-Given(/^the TV episodes:$/) do |table|
-  ActiveCucumber.horizontal_table(table).each do |row|
-    show = Show.find_or_create_by name: row['SHOW']
-    show.episodes.create name: row['NAME'], year: row['YEAR']
+Given(/^the (\w+):$/) do |class_name, table|
+  singular = class_name.singularize
+  clazz = singular.humanize.constantize
+  created_data = if (class_name == singular)
+    ActiveCucumber.create_one clazz, table
+  else
+    ActiveCucumber.create_many clazz, table
   end
+  instance_variable_set "@created_#{class_name}", created_data
 end
 
 
