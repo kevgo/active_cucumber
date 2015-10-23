@@ -49,5 +49,10 @@ Before do
 end
 
 After do
-  expect(@error_happened).to be false unless @error_checked
+  if @error_happened && !@error_checked
+    puts "\n#{@error_message}"
+    puts ''
+    @exception.backtrace.take(5).each { |trace| puts "in #{trace}" }
+    expect(@error_happened).to be false
+  end
 end

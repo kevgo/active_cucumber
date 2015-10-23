@@ -43,8 +43,9 @@ end
 Then(/^the test (passes|fails)$/) do |expected_result|
   @error_checked = true
   if expected_result == 'passes' && @error_happened
-    p @error_message
-    p @exception
+    puts "\n#{@error_message}"
+    puts ''
+    @exception.backtrace.take(5).each { |trace| puts "in #{trace}" }
   end
   expect(@error_happened).to be expected_result != 'passes'
 end
