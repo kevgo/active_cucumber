@@ -4,13 +4,13 @@ module ActiveCucumber
   # into a hash consumable by FactoryGirl
   #
   # Subclasses define methods to convert particular fields.
-  class Cureator
+  class Creator
 
     def initialize attributes
       @attributes = attributes
     end
 
-    # Returns the FactoryGirl version of this Cureator's attributes
+    # Returns the FactoryGirl version of this Creator's attributes
     def factorygirl_attributes
       symbolize_attributes!
       @attributes.each do |key, value|
@@ -27,7 +27,7 @@ module ActiveCucumber
   private
 
     def method_missing method_name, *arguments
-      # This is necessary so that a Cureator subclass can access
+      # This is necessary so that a Creator subclass can access
       # methods of @attributes as if they were its own.
       @attributes.send method_name, *arguments
     end
