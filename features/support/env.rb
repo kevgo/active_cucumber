@@ -21,7 +21,7 @@ ActiveRecord::Schema.define do
   end
 
   create_table :episodes, force: true do |t|
-    t.belongs_to :show, index: true
+    t.belongs_to :show
     t.string :name
     t.integer :year
     t.datetime 'created_at'
