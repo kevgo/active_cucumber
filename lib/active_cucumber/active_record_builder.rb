@@ -1,7 +1,7 @@
 module ActiveCucumber
 
   # Creates ActiveRecord entries with data from given Cucumber tables.
-  class Creator
+  class ActiveRecordBuilder
 
     def initialize activerecord_class
       @clazz = activerecord_class
