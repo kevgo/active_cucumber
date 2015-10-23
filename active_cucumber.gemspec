@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |s|
   s.name          = 'active_cucumber'
-  s.version       = '0.0.3'
+  s.version       = '0.0.4'
   s.authors       = ['Kevin Goslar']
   s.email         = ['kevin.goslar@gmail.com']
   s.summary       = %s(ActiveRecord tools for Cucumber)
