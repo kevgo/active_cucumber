@@ -35,6 +35,11 @@ Then(/^the database contains the given episodes$/) do
 end
 
 
+Then(/^the database contains the (\w+):$/) do |class_name, table|
+  ActiveCucumber.diff_all! class_name.humanize.singularize.constantize, table
+end
+
+
 Then(/^the database contains the shows? (.+)$/) do |show_names|
   expect(Show.all.map(&:name)).to match Kappamaki.from_sentence show_names
 end

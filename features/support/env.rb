@@ -15,7 +15,13 @@ ActiveRecord::Base.establish_connection(
 
 
 ActiveRecord::Schema.define do
+  create_table :genres, force: true do |t|
+    t.string :name
+    t.datetime 'created_at'
+  end
+
   create_table :shows, force: true do |t|
+    t.belongs_to :genre
     t.string :name
     t.datetime 'created_at'
   end
@@ -30,6 +36,10 @@ end
 
 
 FactoryGirl.define do
+  factory :genre do
+    name { Faker::Book.title }
+  end
+
   factory :show do
     name { Faker::Book.title }
   end

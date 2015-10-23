@@ -30,6 +30,20 @@ Feature: ActiveCucumber.create_many
     And the database contains the show "Star Trek TNG"
 
 
+  Scenario: creating associated objects that depend on other associated objects
+    When running "ActiveCucumber.create_many Episode, table" with this table:
+      | GENRE           | SHOW          | NAME                  |
+      | Science Fiction | Star Trek TNG | Encounter at Farpoint |
+      | Science Fiction | Star Trek TNG | All Good Things       |
+    Then the database contains the shows:
+      | GENRE           | NAME          |
+      | Science Fiction | Star Trek TNG |
+    And the database contains the episodes:
+      | SHOW          | NAME                  |
+      | Star Trek TNG | Encounter at Farpoint |
+      | Star Trek TNG | All Good Things       |
+
+
   Scenario: complex example
     When running "ActiveCucumber.create_many Episode, table" with this table:
       | SHOW          | NAME                  | YEAR |
