@@ -1,8 +1,101 @@
 # ActiveCucumber [![Circle CI](https://circleci.com/gh/Originate/active_cucumber.svg?style=shield)](https://circleci.com/gh/Originate/active_cucumber)
 
-High-level Cucumber helpers for testing
+High-level Cucumber helpers for [creating](#creating-database-records)
+and [verifying](#verifying-database-records)
 [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html)-based
-database applications using Cucumber tables.
+database entries using Cucumber tables.
+
+
+## Creating database records
+
+Creating simple fields works out of the box.
+Let's assume we have an application that stores TV shows and their episodes,
+and our tests contain this Cucumber table:
+
+```cucumber
+Given the episodes:
+  | NAME                  | YEAR |
+  | Encounter at Farpoint | 1987 |
+  | All Good Things       | 1994 |
+```
+
+Implementing this step looks like:
+
+```ruby
+Given(/^the episodes:$/) do |table|
+  ActiveCucumber.create_many Episode, table
+end
+```
+
+### Transforming values
+
+Let's say our data model also contains a `Series` class
+(an episode belongs to a series, and a series has many episodes).
+We want to also define (and if necessary create) the series that an episode belongs to:
+
+```cucumber
+Given the episodes:
+  | SERIES        | NAME                  |
+  | Star Trek TNG | Encounter at Farpoint |
+  | Star Trek TNG | All Good Things       |
+```
+
+ActiveCucumber doesn't require custom step definitions here.
+To make this work, tell ActiveCucumber how to convert particular Cucumber table fields
+into ActiveRecord attributes via a `Creator` class:
+
+```ruby
+class EpisodeCreator < ActiveCucumber::Creator
+
+  def value_for_series series_name
+    Series.find_by(name: series_name) || FactoryGirl.create(:series, name: series_name)
+  end
+
+end
+```
+
+ActiveCucumber automatically uses creator classes that follow the given naming schema:
+* name is `<class name>Creator`
+* method names are `value_for_<attribute name>`
+
+
+### Other columns
+
+Cucumber tables can contain columns that provide other test data,
+and don't correspond to attributes on the created object.
+
+```cucumber
+Given the episodes:
+  | GENRE           | SERIES              | NAME                    |
+  | Science Fiction | Star Trek TNG       | Encounter at Farpoint   |
+  | Comedy          | The Big Bang Theory | The Big Bran Hypothesis |
+```
+
+A `Genre` has many series, and a series belongs to a genre.
+Episodes are not directly associated with genres.
+
+```ruby
+class EpisodeCreator < ActiveCucumber::Creator
+
+  def value_for_genre genre_name
+    @genre = Genre.find_by(name: genre_name) || FactoryGirl.create(:genre, name: genre_name)
+    self.delete :genre
+  end
+
+  def value_for_show show_name
+    Show.find_by(name: show_name) || FactoryGirl.create(:show, name: show_name, genre: @genre)
+  end
+
+end
+```
+
+Creators decorate the data structure that
+is sent to FactoryGirl to create the record.
+This means `self` inside creator methods behaves like a Hash
+that is pre-populated with the Cucumber table data.
+You can modify this hash, use other field values,
+add or remove fields,
+or store instance variables to be used later.
 
 
 ## Verifying database records
