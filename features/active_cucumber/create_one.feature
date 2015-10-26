@@ -23,6 +23,15 @@ Feature: ActiveCucumber.create_one
     And the database contains the show "Star Trek TNG"
 
 
+  Scenario: using context values
+    When running "ActiveCucumber.create_one Subscription, table, context: { current_user: 'Q' }" with this table:
+      | SUBSCRIBER | me            |
+      | SHOW       | Star Trek TNG |
+    Then the database contains the subscriptions:
+      | SUBSCRIBER | SHOW          |
+      | Q          | Star Trek TNG |
+
+
   Scenario: complex example
     When running "ActiveCucumber.create_one Episode, table" with this table:
       | SHOW | Star Trek TNG         |

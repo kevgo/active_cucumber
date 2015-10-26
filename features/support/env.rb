@@ -32,6 +32,12 @@ ActiveRecord::Schema.define do
     t.integer :year
     t.datetime 'created_at'
   end
+
+  create_table :subscriptions, force: true do |t|
+    t.string :subscriber
+    t.belongs_to :show
+    t.datetime 'created_at'
+  end
 end
 
 
@@ -49,12 +55,18 @@ FactoryGirl.define do
     year { 1960 + rand(40) }
     show
   end
+
+  factory :subscription do
+    subscriber { Faker::Name.name }
+    show
+  end
 end
 
 
 Before do
   Show.delete_all
   Episode.delete_all
+  Subscription.delete_all
   @error_checked = false
 end
 

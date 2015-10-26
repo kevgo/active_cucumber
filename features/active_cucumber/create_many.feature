@@ -44,6 +44,15 @@ Feature: ActiveCucumber.create_many
       | Star Trek TNG | All Good Things       |
 
 
+  Scenario: using context values
+    When running "ActiveCucumber.create_many Subscription, table, context: { current_user: 'Q' }" with this table:
+      | SUBSCRIBER | SHOW          |
+      | me         | Star Trek TNG |
+    Then the database contains the subscriptions:
+      | SUBSCRIBER | SHOW          |
+      | Q          | Star Trek TNG |
+
+
   Scenario: complex example
     When running "ActiveCucumber.create_many Episode, table" with this table:
       | SHOW          | NAME                  | YEAR |

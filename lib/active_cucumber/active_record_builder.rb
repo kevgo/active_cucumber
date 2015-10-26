@@ -3,9 +3,10 @@ module ActiveCucumber
   # Creates ActiveRecord entries with data from given Cucumber tables.
   class ActiveRecordBuilder
 
-    def initialize activerecord_class
+    def initialize activerecord_class, context
       @clazz = activerecord_class
       @creator_class = creator_class
+      @context = context
     end
 
 
@@ -19,7 +20,7 @@ module ActiveCucumber
 
     # Creates a new record with the given attributes in the database
     def create_record attributes
-      creator = @creator_class.new attributes
+      creator = @creator_class.new attributes, @context
       FactoryGirl.create @clazz, creator.factorygirl_attributes
     end
 

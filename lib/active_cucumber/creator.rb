@@ -7,8 +7,11 @@ module ActiveCucumber
 
     include FactoryGirl::Syntax::Methods
 
-    def initialize attributes
+    def initialize attributes, context
       @attributes = attributes
+      context.each do |key, value|
+        instance_variable_set "@#{key}", value
+      end
     end
 
     # Returns the FactoryGirl version of this Creator's attributes

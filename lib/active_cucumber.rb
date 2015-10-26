@@ -8,16 +8,16 @@ module ActiveCucumber
 
   # Creates entries of the given ActiveRecord class
   # specified by the given horizontal Cucumber table
-  def self.create_many activerecord_class, cucumber_table
-    builder = ActiveRecordBuilder.new activerecord_class
+  def self.create_many activerecord_class, cucumber_table, context: {}
+    builder = ActiveRecordBuilder.new activerecord_class, context
     builder.create_many ActiveCucumber.horizontal_table(cucumber_table)
   end
 
 
   # Creates an entry of the given ActiveRecord class
   # specified by the given vertical Cucumber table
-  def self.create_one activerecord_class, cucumber_table
-    builder = ActiveRecordBuilder.new activerecord_class
+  def self.create_one activerecord_class, cucumber_table, context: {}
+    builder = ActiveRecordBuilder.new activerecord_class, context
     builder.create_record ActiveCucumber.vertical_table(cucumber_table)
   end
 

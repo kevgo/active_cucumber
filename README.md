@@ -105,6 +105,40 @@ class EpisodeCreator < ActiveCucumber::Creator
 end
 ```
 
+### Context values
+
+You can provide extra values to ActiveCucumber that are available as instance
+variables on your creators.
+
+Let's say our system has subscriptions for series, and we want to be able to
+use the currently logged in user in them:
+
+```cucumber
+Given the subscriptions:
+  | SUBSCRIBER | SHOW          |
+  | me         | Star Trek TNG |
+```
+
+The currently logged in user can be provided to ActiveCucumber using the `context` parameter:
+
+```ruby
+Given(/^the subscriptions:$/) do |table|
+  ActiveCucumber.create_many Subscription, table, context: { logged_in_user: @current_user }
+end
+```
+
+In the Creator, the context is available as instance variables:
+
+```ruby
+class SubscriptionCreator < ActiveCucumber::Creator
+
+  def value_for_subscriber subscriber_name
+    subscriber_name == 'me' ? @logged_in_user : subscriber_name
+  end
+
+end
+```
+
 
 ## Verifying database records
 
