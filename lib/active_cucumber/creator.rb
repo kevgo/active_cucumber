@@ -1,9 +1,6 @@
 module ActiveCucumber
 
-  # Converts an attributes hash in Cucumber format
-  # into a hash consumable by FactoryGirl
-  #
-  # Subclasses define methods to convert particular fields.
+  # Creates ActiveRecord entries with data from given Cucumber tables.
   class Creator
 
     def initialize attributes

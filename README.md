@@ -1,25 +1,29 @@
 # ActiveCucumber [![Circle CI](https://circleci.com/gh/Originate/active_cucumber.svg?style=shield)](https://circleci.com/gh/Originate/active_cucumber)
 
-High-level Cucumber helpers for [creating](#creating-database-records)
-and [verifying](#verifying-database-records)
+High-level Cucumber helpers for performing
 [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html)-based
-database entries using Cucumber tables.
+database operations using Cucumber tables in tests.
 
 
 ## Creating database records
 
-Creating simple fields works out of the box.
-Let's assume we have an application that stores TV shows and their episodes,
-and our tests contain this Cucumber table:
+ActiveCucumber allows to create ActiveRecord objects from data in Cucumber tables.
+
+Let's assume we have an application that stores TV shows and their episodes.
+
+
+### Creating simple fields
+
+Simple fields works out of the box. Let's say our tests contain this Cucumber table:
 
 ```cucumber
 Given the episodes:
-  | NAME                  | YEAR |
-  | Encounter at Farpoint | 1987 |
-  | All Good Things       | 1994 |
+  | NAME                  |
+  | Encounter at Farpoint |
+  | All Good Things       |
 ```
 
-Implementing this step looks like:
+ActiveCucumber makes it trivially easy to implement this step:
 
 ```ruby
 Given(/^the episodes:$/) do |table|
@@ -54,15 +58,20 @@ class EpisodeCreator < ActiveCucumber::Creator
 end
 ```
 
-ActiveCucumber automatically uses creator classes that follow the given naming schema:
-* name is `<class name>Creator`
-* method names are `value_for_<attribute name>`
+ActiveCucumber automatically uses classes named `<class name>Creator`
+as creator classes for the respective class.
+This class must have methods named `value_for_<attribute name>`.
+They receive the value of the respective attribute in the Cucumber table (a string),
+and return whatever value should be assigned to that attribute on the ActiveRecord instance.
 
 
 ### Other columns
 
 Cucumber tables can contain columns that provide other test data,
 and don't correspond to attributes on the created object.
+
+For example, let's say series belong to a `Genre` class that specifies
+the genre that the series is in.
 
 ```cucumber
 Given the episodes:
@@ -71,8 +80,15 @@ Given the episodes:
   | Comedy          | The Big Bang Theory | The Big Bran Hypothesis |
 ```
 
-A `Genre` has many series, and a series belongs to a genre.
-Episodes are not directly associated with genres.
+Implementing this with Creators is simple:
+
+Creators decorate the data structure that
+is sent to FactoryGirl to create the record.
+This means `self` inside creator methods behaves like a Hash
+that is pre-populated with the Cucumber table data.
+You can modify this hash, use other field values,
+add or remove fields,
+or store instance variables to be used later.
 
 ```ruby
 class EpisodeCreator < ActiveCucumber::Creator
@@ -82,20 +98,12 @@ class EpisodeCreator < ActiveCucumber::Creator
     delete :genre
   end
 
-  def value_for_show show_name
-    Show.find_by(name: show_name) || FactoryGirl.create(:show, name: show_name, genre: @genre)
+  def value_for_series series_name
+    Series.find_by(name: series_name) || FactoryGirl.create(:series, name: series_name, genre: @genre)
   end
 
 end
 ```
-
-Creators decorate the data structure that
-is sent to FactoryGirl to create the record.
-This means `self` inside creator methods behaves like a Hash
-that is pre-populated with the Cucumber table data.
-You can modify this hash, use other field values,
-add or remove fields,
-or store instance variables to be used later.
 
 
 ## Verifying database records
