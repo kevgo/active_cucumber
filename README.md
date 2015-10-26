@@ -1,4 +1,4 @@
-# ActiveCucumber [![Circle CI](https://circleci.com/gh/Originate/active_cucumber.svg?style=shield)](https://circleci.com/gh/Originate/active_cucumber) [![Gem Version](https://badge.fury.io/rb/active_cucumber.svg)](https://badge.fury.io/rb/active_cucumber)
+# ActiveCucumber [![Circle CI](https://circleci.com/gh/Originate/active_cucumber.svg?style=shield)](https://circleci.com/gh/Originate/active_cucumber) [![Dependency Status](https://gemnasium.com/Originate/active_cucumber.svg)](https://gemnasium.com/Originate/active_cucumber) [![Gem Version](https://badge.fury.io/rb/active_cucumber.svg)](https://badge.fury.io/rb/active_cucumber)
 
 High-level Cucumber helpers for performing
 [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html)-based
