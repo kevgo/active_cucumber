@@ -13,6 +13,7 @@ module ActiveCucumber
     builder.create_many ActiveCucumber.horizontal_table(cucumber_table)
   end
 
+
   # Creates an entry of the given ActiveRecord class
   # specified by the given vertical Cucumber table
   def self.create_one activerecord_class, cucumber_table
@@ -48,6 +49,5 @@ module ActiveCucumber
   def self.vertical_table table
     table.rows_hash
   end
-
 
 end
