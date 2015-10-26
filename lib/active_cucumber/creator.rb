@@ -3,6 +3,8 @@ module ActiveCucumber
   # Creates ActiveRecord entries with data from given Cucumber tables.
   class Creator
 
+    include FactoryGirl::Syntax::Methods
+
     def initialize attributes
       @attributes = attributes
     end
