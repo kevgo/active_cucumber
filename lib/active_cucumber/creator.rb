@@ -1,3 +1,5 @@
+require 'factory_girl'
+
 module ActiveCucumber
 
   # Creates ActiveRecord entries with data from given Cucumber tables.
