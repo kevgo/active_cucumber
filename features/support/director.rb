@@ -1,3 +1,3 @@
 class Director < ActiveRecord::Base
-  has_many :show
+  has_many :shows
 end
