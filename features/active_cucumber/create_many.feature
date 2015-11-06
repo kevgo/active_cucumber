@@ -30,6 +30,15 @@ Feature: ActiveCucumber.create_many
     And the database contains the show "Star Trek TNG"
 
 
+  Scenario: creating associated objects with a nil value
+    When running "ActiveCucumber.create_many Show, table" with this table:
+      | DIRECTOR         | NAME          |
+      |                  | Directionless |
+      | Gene Roddenberry | Star Trek TNG |
+    Then the database contains the given shows
+    And "Directionless" does not have a director
+
+
   Scenario: creating associated objects that depend on other associated objects
     When running "ActiveCucumber.create_many Episode, table" with this table:
       | GENRE           | SHOW          | NAME                  |

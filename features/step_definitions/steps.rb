@@ -11,7 +11,7 @@ end
 
 
 
-Then(/^running "([^"]+)" with this table:$/) do |code, table|
+When(/^running "([^"]+)" with this table:$/) do |code, table|
   @previous_table = table
   begin
     @error_happened = false
@@ -21,6 +21,10 @@ Then(/^running "([^"]+)" with this table:$/) do |code, table|
     @error_message = e.message
     @exception = e
   end
+end
+
+Then(/^"(.*?)" does not have a director$/) do |show_name|
+  expect(Show.find_by(name: show_name).director).to be nil
 end
 
 
@@ -34,6 +38,9 @@ Then(/^the database contains the given episodes$/) do
   ActiveCucumber.diff_all! Episode, @previous_table
 end
 
+Then(/^the database contains the given shows$/) do
+  ActiveCucumber.diff_all! Show, @previous_table
+end
 
 Then(/^the database contains the (\w+):$/) do |class_name, table|
   ActiveCucumber.diff_all! class_name.humanize.singularize.constantize, table

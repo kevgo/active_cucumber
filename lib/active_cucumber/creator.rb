@@ -19,7 +19,7 @@ module ActiveCucumber
       symbolize_attributes!
       @attributes.each do |key, value|
         next unless respond_to?(method = method_name(key))
-        if (result = send method, value)
+        if (result = send method, value) || value.nil?
           @attributes[key] = result if @attributes.key? key
         else
           @attributes.delete key
@@ -48,12 +48,17 @@ module ActiveCucumber
       key.downcase.parameterize.underscore.to_sym
     end
 
+    def normalized_value value
+      return nil if value.blank?
+      value
+    end
+
 
     # Makes the keys on @attributes be normalized symbols
     def symbolize_attributes!
       @attributes = {}.tap do |result|
         @attributes.each do |key, value|
-          result[normalized_key key] = value
+          result[normalized_key key] = normalized_value value
         end
       end
     end

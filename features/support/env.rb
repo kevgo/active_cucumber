@@ -38,6 +38,12 @@ ActiveRecord::Schema.define do
     t.belongs_to :show
     t.datetime 'created_at'
   end
+
+  create_table :directors, force: true do |t|
+    t.string :name
+    t.belongs_to :show
+    t.datetime 'created_at'
+  end
 end
 
 
@@ -48,6 +54,7 @@ FactoryGirl.define do
 
   factory :show do
     name { Faker::Book.title }
+    director
   end
 
   factory :episode do
@@ -60,6 +67,10 @@ FactoryGirl.define do
     subscriber { Faker::Name.name }
     show
   end
+
+  factory :director do
+    name { Faker::Name.name }
+  end
 end
 
 
@@ -67,6 +78,7 @@ Before do
   Show.delete_all
   Episode.delete_all
   Subscription.delete_all
+  Director.delete_all
   @error_checked = false
 end
 

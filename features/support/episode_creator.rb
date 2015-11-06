@@ -1,6 +1,7 @@
 class EpisodeCreator < ActiveCucumber::Creator
 
   def value_for_show show_name
+    return nil if show_name.blank?
     Show.find_by(name: show_name) || FactoryGirl.create(:show, name: show_name, genre: @genre)
   end
 
