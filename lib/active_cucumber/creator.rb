@@ -49,8 +49,7 @@ module ActiveCucumber
     end
 
     def normalized_value value
-      return nil if value.blank?
-      value
+      value.blank? ? nil : value
     end
 
 

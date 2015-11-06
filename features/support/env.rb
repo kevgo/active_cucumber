@@ -22,6 +22,7 @@ ActiveRecord::Schema.define do
 
   create_table :shows, force: true do |t|
     t.belongs_to :genre
+    t.belongs_to :director
     t.string :name
     t.datetime 'created_at'
   end
@@ -41,7 +42,6 @@ ActiveRecord::Schema.define do
 
   create_table :directors, force: true do |t|
     t.string :name
-    t.belongs_to :show
     t.datetime 'created_at'
   end
 end
