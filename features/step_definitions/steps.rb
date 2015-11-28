@@ -1,7 +1,7 @@
 Given(/^the (\w+):$/) do |class_name, table|
   singular = class_name.singularize
   clazz = singular.humanize.constantize
-  created_data = if (class_name == singular)
+  created_data = if class_name == singular
                    ActiveCucumber.create_one clazz, table
                  else
                    ActiveCucumber.create_many clazz, table
