@@ -10,7 +10,7 @@ module ActiveCucumber
     # Returns all entries in the database as a horizontal Mortadella table
     def to_horizontal_table
       mortadella = Mortadella::Horizontal.new headers: @cucumber_table.headers
-      @clazz.order('created_at ASC').each do |record|
+      @clazz.order('id ASC').each do |record|
         cucumberator = cucumberator_for record
         mortadella << @cucumber_table.headers.map do |header|
           cucumberator.value_for header
