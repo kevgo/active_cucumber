@@ -66,7 +66,7 @@ Feature: ActiveCucumber.create_many
     When running "ActiveCucumber.create_many Episode, table" with this table:
       | SHOW          | NAME                  | YEAR |
       | Star Trek TNG | Encounter at Farpoint | 1987 |
-      | Star Trek TOS | The Paradise Syndrome | 1994 |
+      | Star Trek TOS | The Paradise Syndrome | 1968 |
     Then the database contains the given episodes
     And the database contains the shows "Star Trek TNG" and "Star Trek TOS"
 
