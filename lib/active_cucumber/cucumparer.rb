@@ -2,9 +2,10 @@ module ActiveCucumber
 
   class Cucumparer
 
-    def initialize clazz, cucumber_table
+    def initialize clazz, cucumber_table, context
       @clazz = clazz
       @cucumber_table = cucumber_table
+      @context = context
     end
 
     # Returns all entries in the database as a horizontal Mortadella table
@@ -45,7 +46,7 @@ module ActiveCucumber
 
     # Returns the Cucumberator object for the given ActiveRecord instance
     def cucumberator_for object
-      cucumberator_class.new object
+      cucumberator_class.new object, @context
     end
 
   end

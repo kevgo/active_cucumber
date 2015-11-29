@@ -53,3 +53,13 @@ Feature: ActiveCucumber.diff_one!
       | NAME | All Good Things |
     Then the test fails
     And Cucumparer prints the error message "Tables were not identical"
+
+
+  Scenario: using context values
+    Given the subscription:
+      | SUBSCRIBER | Q             |
+      | SHOW       | Star Trek TNG |
+    When running "ActiveCucumber.diff_one! @created_subscription, table, context: { current_user: 'Q' }" with this table:
+      | SUBSCRIBER | me            |
+      | SHOW       | Star Trek TNG |
+    Then the test passes

@@ -4,4 +4,8 @@ class SubscriptionCucumberator < ActiveCucumber::Cucumberator
     show.try :name
   end
 
+  def value_for_subscriber
+    subscriber == @current_user ? 'me' : subscriber
+  end
+
 end

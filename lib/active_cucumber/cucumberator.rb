@@ -8,8 +8,11 @@ module ActiveCucumber
   class Cucumberator
 
     # object - the instance to decorate
-    def initialize object
+    def initialize object, context
       @object = object
+      context.each do |key, value|
+        instance_variable_set "@#{key}", value
+      end
     end
 
 
