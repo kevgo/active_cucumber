@@ -2,8 +2,8 @@ module ActiveCucumber
 
   class Cucumparer
 
-    def initialize clazz, cucumber_table, context
-      @clazz = clazz
+    def initialize database_content, cucumber_table, context
+      @database_content = database_content
       @cucumber_table = cucumber_table
       @context = context
     end
@@ -11,7 +11,8 @@ module ActiveCucumber
     # Returns all entries in the database as a horizontal Mortadella table
     def to_horizontal_table
       mortadella = Mortadella::Horizontal.new headers: @cucumber_table.headers
-      @clazz.order('id ASC').each do |record|
+      @database_content = @database_content.all if @database_content.respond_to? :all
+      @database_content.each do |record|
         cucumberator = cucumberator_for record
         mortadella << @cucumber_table.headers.map do |header|
           cucumberator.value_for header
@@ -33,20 +34,20 @@ module ActiveCucumber
   private
 
     # Returns the Cucumberator subclass to be used by this Cucumparer instance
-    def cucumberator_class
-      cucumberator_class_name.constantize
+    def cucumberator_class object
+      cucumberator_class_name(object).constantize
     rescue NameError
       Cucumberator
     end
 
     # Returns the name of the Cucumberator subclass to be used by this Cucumparer instance.
-    def cucumberator_class_name
-      "#{@clazz.name}Cucumberator"
+    def cucumberator_class_name object
+      "#{object.class.name}Cucumberator"
     end
 
     # Returns the Cucumberator object for the given ActiveRecord instance
     def cucumberator_for object
-      cucumberator_class.new object, @context
+      cucumberator_class(object).new object, @context
     end
 
   end
