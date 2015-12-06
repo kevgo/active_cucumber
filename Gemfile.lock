@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    active_cucumber (0.0.10)
+    active_cucumber (0.1.0)
 
 GEM
   remote: https://rubygems.org/
