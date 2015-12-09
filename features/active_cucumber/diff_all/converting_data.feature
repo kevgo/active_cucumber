@@ -5,9 +5,8 @@ Feature: Comparing different field types
   So that database verifications are intuitive.
 
   Rules:
-  - content in data columns without a Cucumberator is compared as-is with the table content
-  - content in data columns can be modified through a Cucumberator before verification
-  - associated records can be converted to text via a Cucumberator
+  - the user can define a Cucumberator to define custom Cucumber representations of fields or associated records
+  - if the Cucumberator doesn't define a conversion or is missing altogether, the content is compared as-is
 
 
   Background:
@@ -17,7 +16,17 @@ Feature: Comparing different field types
       | Star Trek TNG | All Good Things       | 1994 |
 
 
-  Scenario: verifying string fields
+  Scenario: verifying a record without a Cucumberator
+    Given the genres:
+      | NAME            |
+      | Science Fiction |
+    When running "ActiveCucumber.diff_all! Genre, table" with this table:
+      | NAME            |
+      | Science Fiction |
+    Then the test passes
+
+
+  Scenario: verifying fields not defined in the Cucumberator
     When running "ActiveCucumber.diff_all! Episode, table" with this table:
       | NAME                  |
       | Encounter at Farpoint |
@@ -25,7 +34,7 @@ Feature: Comparing different field types
     Then the test passes
 
 
-  Scenario: verifying non-string fields
+  Scenario: verifying numeric fields
     When running "ActiveCucumber.diff_all! Episode, table" with this table:
       | YEAR |
       | 1987 |

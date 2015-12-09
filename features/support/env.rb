@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear!
+
 require 'active_record'
 require 'sqlite3'
 require 'mortadella'
@@ -79,6 +82,7 @@ Before do
   Episode.delete_all
   Subscription.delete_all
   Director.delete_all
+  Genre.delete_all
   @error_checked = false
 end
 
