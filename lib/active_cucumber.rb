@@ -6,6 +6,14 @@ require 'active_cucumber/creator'
 # The main namespace for this gem
 module ActiveCucumber
 
+  # Returns the attributes to create an instance of the given ActiveRecord class
+  # that matches the given vertical Cucumber table
+  def self.attributes_for activerecord_class, cucumber_table, context: {}
+    builder = ActiveRecordBuilder.new activerecord_class, context
+    builder.attributes_for ActiveCucumber.vertical_table(cucumber_table)
+  end
+
+
   # Creates entries of the given ActiveRecord class
   # specified by the given horizontal Cucumber table
   def self.create_many activerecord_class, cucumber_table, context: {}

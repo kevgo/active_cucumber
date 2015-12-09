@@ -28,6 +28,16 @@ Then(/^"(.*?)" does not have a director$/) do |show_name|
 end
 
 
+Then(/^it returns the hash$/) do |hash_string|
+  expect(@result).to match eval hash_string
+end
+
+
+Then(/^the database contains no (episodes|shows)$/) do |class_name|
+  expect(class_name.classify.constantize).to have(0).records
+end
+
+
 Then(/^the database contains the given episode$/) do
   expect(Episode).to have(1).instance
   ActiveCucumber.diff_one! Episode.first, @previous_table

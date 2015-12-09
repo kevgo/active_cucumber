@@ -10,6 +10,11 @@ module ActiveCucumber
     end
 
 
+    def attributes_for attributes
+      @creator_class.new(attributes, @context).factorygirl_attributes
+    end
+
+
     # Creates all entries in the given horizontal table hash
     def create_many table
       table.map do |row|

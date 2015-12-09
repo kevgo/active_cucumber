@@ -31,6 +31,7 @@ Given(/^the episodes:$/) do |table|
 end
 ```
 
+
 ### Transforming values
 
 Let's say our data model also contains a `Series` class
@@ -105,6 +106,7 @@ class EpisodeCreator < ActiveCucumber::Creator
 end
 ```
 
+
 ### Context values
 
 You can provide extra values to ActiveCucumber that are available as instance
@@ -138,6 +140,18 @@ class SubscriptionCreator < ActiveCucumber::Creator
 
 end
 ```
+
+
+### Retrieving record attributes
+
+If you want to create the database record yourself,
+you can have ActiveCucumber parse a Cucumber table into an attributes hash by calling
+
+```ruby
+ActiveCucumber.attributes_for <class>, table
+```
+
+with a vertical Cucumber table.
 
 
 ## Verifying database records
