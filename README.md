@@ -8,7 +8,7 @@ database operations using Cucumber tables in tests.
 
 ## Creating database records
 
-ActiveCucumber allows to create ActiveRecord objects from data in Cucumber tables.
+ActiveCucumber allows to create ActiveRecord objects from data in Cucumber tables using [FactoryGirl factories](https://github.com/thoughtbot/factory_girl).
 
 Let's assume we have an application that stores TV shows and their episodes.
 
