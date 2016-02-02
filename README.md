@@ -6,6 +6,13 @@ High-level Cucumber helpers for performing
 database operations using Cucumber tables in tests.
 
 
+## Installation
+
+* add `gem 'active_cucumber'` to your Gemfile
+* run `bundle install`
+* make sure you have your [FactoryGirl factories](https://github.com/thoughtbot/factory_girl) set up and loaded
+
+
 ## Creating database records
 
 ActiveCucumber allows to create ActiveRecord objects from data in Cucumber tables using [FactoryGirl factories](https://github.com/thoughtbot/factory_girl).
