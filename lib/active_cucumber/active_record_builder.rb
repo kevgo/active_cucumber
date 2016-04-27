@@ -26,7 +26,7 @@ module ActiveCucumber
     # Creates a new record with the given attributes in the database
     def create_record attributes
       creator = @creator_class.new attributes, @context
-      FactoryGirl.create @clazz, creator.factorygirl_attributes
+      FactoryGirl.create @clazz.name.underscore.to_sym, creator.factorygirl_attributes
     end
 
 
