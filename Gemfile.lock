@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    active_cucumber (0.2.1)
+    active_cucumber (1.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -137,4 +137,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
