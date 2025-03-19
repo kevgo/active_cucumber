@@ -17,11 +17,6 @@ end
 desc 'Run linters'
 task lint: %w[lint:ruby lint:cucumber]
 
-desc 'Run Cucumber linter'
-task 'lint:cucumber' do
-  sh 'bundle exec cucumber_lint'
-end
-
 desc 'Run Ruby linter'
 task 'lint:ruby' do
   # NOTE: cannot use "task 'lint:ruby' => [:rubocop]" here,
