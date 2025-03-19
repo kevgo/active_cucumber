@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveCucumber
   # Creates ActiveRecord entries with data from given Cucumber tables.
   class ActiveRecordBuilder
