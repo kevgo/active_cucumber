@@ -3,19 +3,19 @@
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-Gem::Specification.new do |s|
-  s.name          = 'active_cucumber'
-  s.version       = '1.0.0'
-  s.authors       = ['Kevin Goslar']
-  s.email         = ['kevin.goslar@gmail.com']
-  s.summary       = %s(ActiveRecord tools for Cucumber)
-  s.description   = %s(Tools to compare ActiveRecord entries with Cucumber tables)
-  s.homepage      = 'https://github.com/kevgo/active_cucumber'
-  s.license       = 'MIT'
+Gem::Specification.new do |gem|
+  gem.name          = 'active_cucumber'
+  gem.version       = '1.0.0'
+  gem.authors       = ['Kevin Goslar']
+  gem.email         = ['kevin.goslar@gmail.com']
+  gem.summary       = %s(ActiveRecord tools for Cucumber)
+  gem.description   = %s(Tools to compare ActiveRecord entries with Cucumber tables)
+  gem.homepage      = 'https://github.com/kevgo/active_cucumber'
+  gem.license       = 'MIT'
 
-  s.files         = `git ls-files -z`.split("\x0")
-  s.require_paths = ['lib']
+  gem.files         = `git ls-files -z`.split("\x0")
+  gem.require_paths = ['lib']
 
-  s.required_ruby_version = '>= 2.7'
-  s.metadata['rubygems_mfa_required'] = 'true'
+  gem.required_ruby_version = '>= 2.7'
+  gem.metadata['rubygems_mfa_required'] = 'true'
 end
