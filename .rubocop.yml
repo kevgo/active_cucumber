@@ -1,35 +1,12 @@
 AllCops:
-
+  NewCops: enable
   DisplayCopNames: true
-
   DisplayStyleGuide: true
-
   Include:
-    - '**/Rakefile'
+    - "**/Rakefile"
 
-
-Lint/Eval:
-  Enabled: false
-
-
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
 
-
-Style/AccessModifierIndentation:
-  EnforcedStyle: outdent
-
-Style/Documentation:
-  Enabled: false
-
-Style/EmptyLines:
-  Enabled: false
-
-Style/EmptyLinesAroundClassBody:
-  Enabled: false
-
-Style/EmptyLinesAroundModuleBody:
-  EnforcedStyle: empty_lines
-
-Style/MethodDefParentheses:
-  EnforcedStyle: require_no_parentheses
+Style/SymbolArray:
+  EnforcedStyle: brackets
