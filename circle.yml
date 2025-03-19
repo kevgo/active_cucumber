@@ -13,4 +13,3 @@ notify:
 test:
   override:
     - bundle exec rake
-
