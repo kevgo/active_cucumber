@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/Originate/active_cucumber.svg?style=shield)](https://circleci.com/gh/Originate/active_cucumber)
+[![CI](https://github.com/kevgo/active_cucumber/actions/workflows/ruby.yml/badge.svg)](https://github.com/kevgo/active_cucumber/actions/workflows/ruby.yml)
 [![Code Climate](https://codeclimate.com/github/Originate/active_cucumber/badges/gpa.svg)](https://codeclimate.com/github/Originate/active_cucumber)
 [![Dependency Status](https://gemnasium.com/Originate/active_cucumber.svg)](https://gemnasium.com/Originate/active_cucumber)
 [![Coverage Status](https://coveralls.io/repos/Originate/active_cucumber/badge.svg?branch=kg-coveralls&service=github)](https://coveralls.io/github/Originate/active_cucumber?branch=kg-coveralls)
