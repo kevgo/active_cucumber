@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = '1.0.0'
   gem.authors       = ['Kevin Goslar']
   gem.email         = ['kevin.goslar@gmail.com']
-  gem.summary       = %s(ActiveRecord tools for Cucumber)
-  gem.description   = %s(Tools to compare ActiveRecord entries with Cucumber tables)
+  gem.summary       = 'ActiveRecord tools for Cucumber'
+  gem.description   = 'Tools to compare ActiveRecord entries with Cucumber tables'
   gem.homepage      = 'https://github.com/kevgo/active_cucumber'
   gem.license       = 'MIT'
 
