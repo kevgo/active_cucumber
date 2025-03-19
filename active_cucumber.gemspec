@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.email         = ['kevin.goslar@gmail.com']
   s.summary       = %s(ActiveRecord tools for Cucumber)
   s.description   = %s(Tools to compare ActiveRecord entries with Cucumber tables)
-  s.homepage      = 'https://github.com/Originate/active_cucumber'
+  s.homepage      = 'https://github.com/kevgo/active_cucumber'
   s.license       = 'MIT'
 
   s.files         = `git ls-files -z`.split("\x0")
