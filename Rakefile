@@ -17,4 +17,5 @@ end
 desc 'Run linters'
 task 'lint' do
   sh 'bundle exec rubocop'
+  sh 'dprint check'
 end
