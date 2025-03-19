@@ -11,6 +11,7 @@ task default: [:lint, :features]
 desc "Fix all auto-fixable issues"
 task "fix" do
   sh "bundle exec rubocop -A"
+  sh "bundle exec rubocop -A active_cucumber.gemspec"
   sh "dprint fmt"
 end
 
