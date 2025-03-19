@@ -15,13 +15,6 @@ task 'fix' do
 end
 
 desc 'Run linters'
-task lint: %w[lint:ruby lint:cucumber]
-
-desc 'Run Ruby linter'
-task 'lint:ruby' do
-  # NOTE: cannot use "task 'lint:ruby' => [:rubocop]" here,
-  #       because the Heroku toolbelt has issues with JRuby.
-  #       In particular, running "heroku run rake db:migrate"
-  #       fails when JRuby is the active Ruby at this point.
+task 'lint' do
   sh 'bundle exec rubocop'
 end
