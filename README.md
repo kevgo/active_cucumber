@@ -1,5 +1,5 @@
 [![CI](https://github.com/kevgo/active_cucumber/actions/workflows/ruby.yml/badge.svg)](https://github.com/kevgo/active_cucumber/actions/workflows/ruby.yml)
-[![Coverage Status](https://coveralls.io/repos/Originate/active_cucumber/badge.svg?branch=kg-coveralls&service=github)](https://coveralls.io/github/Originate/active_cucumber?branch=kg-coveralls)
+[![Coverage Status](https://coveralls.io/repos/kevgo/active_cucumber/badge.svg?branch=kg-coveralls&service=github)](https://coveralls.io/github/kevgo/active_cucumber?branch=kg-coveralls)
 
 High-level Cucumber helpers for performing
 [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html)-based
