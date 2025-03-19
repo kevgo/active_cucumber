@@ -1,13 +1,21 @@
+# frozen_string_literal: true
+
 require 'bundler'
 require 'bundler/gem_tasks'
 require 'cucumber'
 require 'cucumber/rake/task'
 
 Cucumber::Rake::Task.new :features
-task default: %i(lint features)
+task default: [:lint, :features]
+
+desc 'Fix all auto-fixable issues'
+task 'fix' do
+  sh 'bundle exec rubocop -A'
+  sh 'dprint fmt'
+end
 
 desc 'Run linters'
-task lint: %w(lint:ruby lint:cucumber)
+task lint: %w[lint:ruby lint:cucumber]
 
 desc 'Run Cucumber linter'
 task 'lint:cucumber' do
