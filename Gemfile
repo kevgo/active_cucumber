@@ -2,3 +2,18 @@ source 'https://rubygems.org'
 
 # Specify your gem's dependencies in mortadella.gemspec
 gemspec
+
+gem 'activerecord'
+gem 'bundler'
+gem 'coveralls'
+gem 'cucumber'
+gem 'factory_bot'
+gem 'faker'
+gem 'kappamaki'
+gem 'mortadella'
+gem 'observer'
+gem 'rake'
+gem 'rspec'
+gem 'rspec-collection_matchers'
+gem 'rubocop'
+gem 'sqlite3'

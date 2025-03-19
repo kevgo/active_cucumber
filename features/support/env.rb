@@ -7,17 +7,15 @@ require 'active_record'
 require 'sqlite3'
 require 'mortadella'
 require 'active_cucumber'
-require 'factory_girl'
+require 'factory_bot'
 require 'faker'
 require 'kappamaki'
 require 'rspec/collection_matchers'
-
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
   database: ':memory:'
 )
-
 
 ActiveRecord::Schema.define do
   create_table :genres, force: true do |t|
@@ -51,8 +49,7 @@ ActiveRecord::Schema.define do
   end
 end
 
-
-FactoryGirl.define do
+FactoryBot.define do
   factory :genre do
     name { Faker::Book.title }
   end
@@ -64,7 +61,7 @@ FactoryGirl.define do
 
   factory :episode do
     name { Faker::Book.title }
-    year { 1960 + rand(40) }
+    year { rand(1960..1999) }
     show
   end
 
@@ -77,7 +74,6 @@ FactoryGirl.define do
     name { Faker::Name.name }
   end
 end
-
 
 Before do
   Show.delete_all
