@@ -1,24 +1,23 @@
-require 'factory_girl'
+require 'factory_bot'
 
 module ActiveCucumber
-
   # Creates ActiveRecord entries with data from given Cucumber tables.
   class Creator
+    include FactoryBot::Syntax::Methods
 
-    include FactoryGirl::Syntax::Methods
-
-    def initialize attributes, context
+    def initialize(attributes, context)
       @attributes = attributes
       context.each do |key, value|
         instance_variable_set "@#{key}", value
       end
     end
 
-    # Returns the FactoryGirl version of this Creator's attributes
+    # Returns the FactoryBot version of this Creator's attributes
     def factorygirl_attributes
       symbolize_attributes!
       @attributes.each do |key, value|
         next unless respond_to?(method = method_name(key))
+
         if (result = send method, value) || value.nil?
           @attributes[key] = result if @attributes.key? key
         else
@@ -27,8 +26,7 @@ module ActiveCucumber
       end
     end
 
-
-  private
+    private
 
     def method_missing method_name, *arguments
       # This is necessary so that a Creator subclass can access
@@ -36,22 +34,19 @@ module ActiveCucumber
       @attributes.send method_name, *arguments
     end
 
-
     # Returns the name of the value_for method for the given key
-    def method_name key
+    def method_name(key)
       "value_for_#{key}"
     end
 
-
-    # Converts the key given in Cucumber format into FactoryGirl format
-    def normalized_key key
+    # Converts the key given in Cucumber format into FactoryBot format
+    def normalized_key(key)
       key.downcase.parameterize.underscore.to_sym
     end
 
-    def normalized_value value
+    def normalized_value(value)
       value.blank? ? nil : value
     end
-
 
     # Makes the keys on @attributes be normalized symbols
     def symbolize_attributes!
@@ -61,7 +56,5 @@ module ActiveCucumber
         end
       end
     end
-
   end
-
 end

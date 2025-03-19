@@ -9,12 +9,12 @@ database operations using Cucumber tables in tests.
 
 * add `gem 'active_cucumber'` to your Gemfile
 * run `bundle install`
-* make sure you have your [FactoryGirl factories](https://github.com/thoughtbot/factory_girl) set up and loaded
+* make sure you have your [FactoryBot factories](https://github.com/thoughtbot/factory_bot) set up and loaded
 
 
 ## Creating database records
 
-ActiveCucumber allows to create ActiveRecord objects from data in Cucumber tables using [FactoryGirl factories](https://github.com/thoughtbot/factory_girl).
+ActiveCucumber allows to create ActiveRecord objects from data in Cucumber tables using [FactoryBot factories](https://github.com/thoughtbot/factory_bot).
 
 Let's assume we have an application that stores TV shows and their episodes.
 
@@ -60,7 +60,7 @@ into ActiveRecord attributes via a `Creator` class:
 class EpisodeCreator < ActiveCucumber::Creator
 
   def value_for_series series_name
-    Series.find_by(name: series_name) || FactoryGirl.create(:series, name: series_name)
+    Series.find_by(name: series_name) || FactoryBot.create(:series, name: series_name)
   end
 
 end
@@ -91,7 +91,7 @@ Given the episodes:
 Implementing this with Creators is simple:
 
 Creators decorate the data structure that
-is sent to FactoryGirl to create the record.
+is sent to FactoryBot to create the record.
 This means `self` inside creator methods behaves like a Hash
 that is pre-populated with the Cucumber table data.
 You can modify this hash, use other field values,
@@ -102,12 +102,12 @@ or store instance variables to be used later.
 class EpisodeCreator < ActiveCucumber::Creator
 
   def value_for_genre genre_name
-    @genre = Genre.find_by(name: genre_name) || FactoryGirl.create(:genre, name: genre_name)
+    @genre = Genre.find_by(name: genre_name) || FactoryBot.create(:genre, name: genre_name)
     delete :genre
   end
 
   def value_for_series series_name
-    Series.find_by(name: series_name) || FactoryGirl.create(:series, name: series_name, genre: @genre)
+    Series.find_by(name: series_name) || FactoryBot.create(:series, name: series_name, genre: @genre)
   end
 
 end
