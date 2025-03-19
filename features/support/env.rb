@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 if ENV['CI']
-  require 'coveralls'
-  Coveralls.wear!
+  require 'simplecov'
+  SimpleCov.start
+  puts 'activated simplecov'
 end
 
 require 'active_record'

@@ -5,7 +5,6 @@ gemspec
 
 gem 'activerecord'
 gem 'bundler'
-gem 'coveralls'
 gem 'cucumber'
 gem 'factory_bot'
 gem 'faker'
@@ -16,4 +15,5 @@ gem 'rake'
 gem 'rspec'
 gem 'rspec-collection_matchers'
 gem 'rubocop'
+gem 'simplecov'
 gem 'sqlite3'
