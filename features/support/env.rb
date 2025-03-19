@@ -1,54 +1,53 @@
 # frozen_string_literal: true
 
-if ENV['CI']
-  require 'simplecov'
+if ENV["CI"]
+  require "simplecov"
   SimpleCov.start
-  puts 'activated simplecov'
 end
 
-require 'active_record'
-require 'sqlite3'
-require 'mortadella'
-require 'active_cucumber'
-require 'factory_bot'
-require 'faker'
-require 'kappamaki'
-require 'rspec/collection_matchers'
+require "active_record"
+require "sqlite3"
+require "mortadella"
+require "active_cucumber"
+require "factory_bot"
+require "faker"
+require "kappamaki"
+require "rspec/collection_matchers"
 
 ActiveRecord::Base.establish_connection(
-  adapter: 'sqlite3',
-  database: ':memory:'
+  adapter: "sqlite3",
+  database: ":memory:"
 )
 
 ActiveRecord::Schema.define do
   create_table :genres, force: true do |t|
     t.string :name
-    t.datetime 'created_at'
+    t.datetime "created_at"
   end
 
   create_table :shows, force: true do |t|
     t.belongs_to :genre
     t.belongs_to :director
     t.string :name
-    t.datetime 'created_at'
+    t.datetime "created_at"
   end
 
   create_table :episodes, force: true do |t|
     t.belongs_to :show
     t.string :name
     t.integer :year
-    t.datetime 'created_at'
+    t.datetime "created_at"
   end
 
   create_table :subscriptions, force: true do |t|
     t.string :subscriber
     t.belongs_to :show
-    t.datetime 'created_at'
+    t.datetime "created_at"
   end
 
   create_table :directors, force: true do |t|
     t.string :name
-    t.datetime 'created_at'
+    t.datetime "created_at"
   end
 end
 
@@ -90,7 +89,7 @@ end
 After do
   if @error_happened && !@error_checked
     puts "\n#{@error_message}"
-    puts ''
+    puts ""
     @exception.backtrace.take(5).each { |trace| puts "in #{trace}" }
     expect(@error_happened).to be false
   end

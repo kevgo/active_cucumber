@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'active_cucumber/cucumparer'
-require 'active_cucumber/cucumberator'
-require 'active_cucumber/active_record_builder'
-require 'active_cucumber/creator'
+require "active_cucumber/cucumparer"
+require "active_cucumber/cucumberator"
+require "active_cucumber/active_record_builder"
+require "active_cucumber/creator"
 
 # The main namespace for this gem
 module ActiveCucumber
