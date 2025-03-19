@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
@@ -14,5 +16,6 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files -z`.split("\x0")
   s.require_paths = ['lib']
 
+  s.required_ruby_version = '>= 2.7'
   s.metadata['rubygems_mfa_required'] = 'true'
 end
