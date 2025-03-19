@@ -1,11 +1,5 @@
 [![CI](https://github.com/kevgo/active_cucumber/actions/workflows/ruby.yml/badge.svg)](https://github.com/kevgo/active_cucumber/actions/workflows/ruby.yml)
-<<<<<<< Updated upstream
-[![Code Climate](https://codeclimate.com/github/Originate/active_cucumber/badges/gpa.svg)](https://codeclimate.com/github/Originate/active_cucumber)
-[![Dependency Status](https://gemnasium.com/Originate/active_cucumber.svg)](https://gemnasium.com/Originate/active_cucumber)
-[![Coverage Status](https://coveralls.io/repos/Originate/active_cucumber/badge.svg?branch=kg-coveralls&service=github)](https://coveralls.io/github/Originate/active_cucumber?branch=kg-coveralls)
-=======
 [![Coverage Status](https://coveralls.io/repos/kevgo/active_cucumber/badge.svg?branch=kg-coveralls&service=github)](https://coveralls.io/github/kevgo/active_cucumber?branch=kg-coveralls)
->>>>>>> Stashed changes
 
 High-level Cucumber helpers for performing
 [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html)-based
