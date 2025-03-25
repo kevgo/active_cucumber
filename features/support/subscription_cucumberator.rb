@@ -6,6 +6,6 @@ class SubscriptionCucumberator < ActiveCucumber::Cucumberator
   end
 
   def value_for_subscriber
-    subscriber == @current_user ? 'me' : subscriber
+    subscriber == @current_user ? "me" : subscriber
   end
 end
