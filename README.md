@@ -36,7 +36,7 @@ ActiveCucumber makes it trivially easy to implement this step:
 
 ```ruby
 Given(/^the episodes:$/) do |table|
-  ActiveCucumber.create_many Episode, table
+  ActiveCucumber.create_many(Episode, table)
 end
 ```
 
@@ -60,7 +60,7 @@ ActiveRecord attributes via a `Creator` class:
 ```ruby
 class EpisodeCreator < ActiveCucumber::Creator
 
-  def value_for_series series_name
+  def value_for_series(series_name)
     Series.find_by(name: series_name) || FactoryBot.create(:series, name: series_name)
   end
 
@@ -99,12 +99,12 @@ later.
 ```ruby
 class EpisodeCreator < ActiveCucumber::Creator
 
-  def value_for_genre genre_name
+  def value_for_genre(genre_name)
     @genre = Genre.find_by(name: genre_name) || FactoryBot.create(:genre, name: genre_name)
     delete :genre
   end
 
-  def value_for_series series_name
+  def value_for_series(series_name)
     Series.find_by(name: series_name) || FactoryBot.create(:series, name: series_name, genre: @genre)
   end
 
@@ -130,7 +130,7 @@ The currently logged in user can be provided to ActiveCucumber using the
 
 ```ruby
 Given(/^the subscriptions:$/) do |table|
-  ActiveCucumber.create_many Subscription, table, context: { logged_in_user: @current_user }
+  ActiveCucumber.create_many(Subscription, table, context: { logged_in_user: @current_user })
 end
 ```
 
@@ -139,7 +139,7 @@ In the Creator, the context is available as instance variables:
 ```ruby
 class SubscriptionCreator < ActiveCucumber::Creator
 
-  def value_for_subscriber subscriber_name
+  def value_for_subscriber(subscriber_name)
     subscriber_name == 'me' ? @logged_in_user : subscriber_name
   end
 
@@ -187,7 +187,7 @@ The `Then` step is easy to implement with ActiveCucumber:
 ```ruby
 Then /^it returns this episode:$/ do |table|
   # @episode contains one loaded entry
-  ActiveCucumber.diff_one! @episode, table
+  ActiveCucumber.diff_one!(@episode, table)
 end
 ```
 
@@ -215,7 +215,7 @@ The last step would be implemented as:
 
 ```ruby
 Then /^Then the database contains these episodes:$/ do |table|
-  ActiveCucumber.diff_all! Episode, table
+  ActiveCucumber.diff_all!(Episode, table)
 end
 ```
 
