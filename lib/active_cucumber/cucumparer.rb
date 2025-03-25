@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ActiveCucumber
+
+  # provides Mortadella tables for the given database content
   class Cucumparer
     def initialize(database_content, cucumber_table, context)
       @database_content = database_content
