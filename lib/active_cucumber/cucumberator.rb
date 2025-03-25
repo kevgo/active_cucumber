@@ -37,6 +37,10 @@ module ActiveCucumber
       @object.send method_name
     end
 
+    def respond_to_missing? method_name, *arguments
+      super
+    end
+
     # Converts the key given in Cucumber format into the format used to
     # access attributes on an ActiveRecord instance.
     def normalized_key(key)

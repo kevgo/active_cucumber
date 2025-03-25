@@ -36,6 +36,10 @@ module ActiveCucumber
       @attributes.send method_name, *arguments
     end
 
+    def respond_to_missing? method_name, *arguments
+      super
+    end
+
     # Returns the name of the value_for method for the given key
     def method_name(key)
       "value_for_#{key}"
