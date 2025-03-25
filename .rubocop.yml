@@ -2,8 +2,8 @@ AllCops:
   NewCops: enable
   DisplayCopNames: true
   DisplayStyleGuide: true
-  Include:
-    - "**/Rakefile"
+  Exclude:
+    - "vendor/**/*"
   SuggestExtensions: false
 
 Layout/LineLength:
