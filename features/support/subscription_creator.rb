@@ -6,6 +6,6 @@ class SubscriptionCreator < ActiveCucumber::Creator
   end
 
   def value_for_subscriber(subscriber_name)
-    subscriber_name == 'me' ? @current_user : subscriber_name
+    subscriber_name == "me" ? @current_user : subscriber_name
   end
 end

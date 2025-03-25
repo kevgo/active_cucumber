@@ -58,12 +58,12 @@ end
 
 Then(/^the test (passes|fails)$/) do |expected_result|
   @error_checked = true
-  if expected_result == 'passes' && @error_happened
+  if expected_result == "passes" && @error_happened
     puts "\n#{@error_message}"
-    puts ''
+    puts ""
     @exception.backtrace.take(5).each { |trace| puts "in #{trace}" }
   end
-  expect(@error_happened).to be expected_result != 'passes'
+  expect(@error_happened).to be expected_result != "passes"
 end
 
 Then(/^Cucumparer prints the error message "([^"]*)"$/) do |expected_error|

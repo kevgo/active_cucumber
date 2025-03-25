@@ -43,6 +43,10 @@ module ActiveCucumber
       key.to_s.downcase.parameterize.underscore
     end
 
+    def respond_to_missing? method_name, *arguments
+      super
+    end
+
     # Returns the name of the value_of_* method for the given key
     def value_method_name(key)
       "value_for_#{normalized_key key}"

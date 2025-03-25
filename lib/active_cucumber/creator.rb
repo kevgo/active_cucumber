@@ -50,6 +50,10 @@ module ActiveCucumber
       value.blank? ? nil : value
     end
 
+    def respond_to_missing? method_name, *arguments
+      super
+    end
+
     # Makes the keys on @attributes be normalized symbols
     def symbolize_attributes!
       @attributes = {}.tap do |result|
