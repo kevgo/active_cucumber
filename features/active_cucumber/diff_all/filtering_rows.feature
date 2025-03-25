@@ -1,16 +1,5 @@
 Feature: Verifying only certain database rows
 
-  As a developer specifying the result of database operations
-  I want to have the choice to verify either the full database content or only a part of it
-  So that my specs aren't polluted by independent side effects and remain focussed on the functionality described.
-
-  Rules:
-  - when providing an ActiveRecord class to `ActiveCucumber.diff_all!`
-  it verifies the whole database table
-  - when providing an AREL query to `ActiveCucumber.diff_all!`
-  it verifies only the specified records in the respective table
-
-
   Background:
     Given the episodes:
       | SHOW          | NAME                  | YEAR |

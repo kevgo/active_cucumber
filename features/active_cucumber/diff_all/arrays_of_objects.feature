@@ -1,14 +1,5 @@
 Feature: Comparing arrays of ActiveRecord instances
 
-  As a developer having complex database query logic
-  I want to be able to compare against a manually created array of ActiveRecord objects
-  So that I can use ActiveCucumber for a large variety of data sources.
-
-  Rules:
-  - one can give an ActiveRecord class or an array of ActiveRecord instances to ActiveCucumber
-  - ActiveCucumber choses the Cucumperer based on the class of each record
-
-
   Background:
     Given the episodes:
       | NAME                  | YEAR |

@@ -1,15 +1,5 @@
 Feature: comparing against all existing records
 
-  As a developer verifying my database content
-  I want that my specs verify the exact database content
-  So that I can be sure that my application behaves exactly as I think it does.
-
-  Rules:
-  - missing rows cause test failure
-  - extra rows cause test failure
-  - mismatching fields cause test failure
-
-
   Background:
     Given the episodes:
       | SHOW          | NAME                  | YEAR |

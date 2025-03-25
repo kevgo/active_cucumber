@@ -1,10 +1,5 @@
 Feature: ActiveCucumber.attributes_for
 
-  Rules:
-  - ActiveCucumber.attributes_for(Class, table) returns the attributes of the given table as a hash
-  - the creator for this class is used to parse attributes in the Cucumber table
-  - related objects are getting created in the database
-
   Scenario: data attributes
     When running "ActiveCucumber.attributes_for(Episode, table)" with this table:
       | NAME | Encounter at Farpoint |

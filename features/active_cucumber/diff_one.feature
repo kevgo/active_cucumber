@@ -1,10 +1,5 @@
 Feature: ActiveCucumber.diff_one!
 
-  As a Cucumber user
-  I want to verify a single record using a detailed Cucumber table
-  So that I can easily and intuitively check individual database entries.
-
-
   Background:
     Given the episode:
       | SHOW | Star Trek TNG   |

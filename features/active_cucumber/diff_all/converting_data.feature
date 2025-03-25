@@ -1,14 +1,5 @@
 Feature: Comparing different field types
 
-  As a developer testing a relational database
-  I want to verify my database content and associations the same way
-  So that database verifications are intuitive.
-
-  Rules:
-  - the user can define a Cucumberator to define custom Cucumber representations of fields or associated records
-  - if the Cucumberator doesn't define a conversion or is missing altogether, the content is compared as-is
-
-
   Background:
     Given the episodes:
       | SHOW          | NAME                  | YEAR |
