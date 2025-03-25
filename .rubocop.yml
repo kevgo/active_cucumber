@@ -9,6 +9,10 @@ AllCops:
 Layout/LineLength:
   Max: 100
 
+Style/Documentation:
+  Exclude:
+    - "features/support/*"
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 

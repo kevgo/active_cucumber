@@ -15,7 +15,7 @@ When(/^running "([^"]+)" with this table:$/) do |code, table|
   @previous_table = table
   begin
     @error_happened = false
-    @result = eval code
+    @result = eval(code)
   rescue StandardError => e
     @error_happened = true
     @error_message = e.message
@@ -28,7 +28,7 @@ Then(/^"(.*?)" does not have a director$/) do |show_name|
 end
 
 Then(/^it returns the hash$/) do |hash_string|
-  expect(@result).to match eval hash_string
+  expect(@result).to match eval(hash_string)
 end
 
 Then(/^the database contains no (episodes|shows)$/) do |class_name|
