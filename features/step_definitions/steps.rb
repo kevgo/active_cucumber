@@ -53,7 +53,7 @@ Then(/^the database contains the (\w+):$/) do |class_name, table|
 end
 
 Then(/^the database contains the shows? (.+)$/) do |show_names|
-  expect(Show.all.map(&:name)).to match Kappamaki.from_sentence show_names
+  expect(Show.all.map(&:name)).to match Kappamaki.from_sentence(show_names)
 end
 
 Then(/^the test (passes|fails)$/) do |expected_result|

@@ -15,7 +15,7 @@ module ActiveCucumber
     end
 
     # Returns the FactoryBot version of this Creator's attributes
-    def factorygirl_attributes
+    def factorybot_attributes
       symbolize_attributes!
       @attributes.each do |key, value|
         next unless respond_to?(method = method_name(key))
@@ -26,6 +26,7 @@ module ActiveCucumber
           @attributes.delete key
         end
       end
+      @attributes
     end
 
     private
@@ -47,7 +48,10 @@ module ActiveCucumber
     end
 
     def normalized_value(value)
-      value.blank? ? nil : value
+      return nil if value.nil?
+      return nil if value.respond_to?(:blank?) && value.blank?
+
+      value
     end
 
     def respond_to_missing? method_name, *arguments
