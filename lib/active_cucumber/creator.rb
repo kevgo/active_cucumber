@@ -4,9 +4,15 @@ require "factory_bot"
 
 module ActiveCucumber
   # Creates ActiveRecord entries with data from given Cucumber tables.
+  #
+  # Subclass this class to customize how Cucumber table values are transformed
+  # into ActiveRecord attributes. Define methods named `value_for_<attribute_name>`
+  # to customize attribute transformation.
   class Creator
     include FactoryBot::Syntax::Methods
 
+    # @param attributes [Hash] The attributes hash from the Cucumber table
+    # @param context [Hash] Optional context values that will be set as instance variables
     def initialize(attributes, context)
       @attributes = attributes
       context.each do |key, value|
@@ -15,7 +21,8 @@ module ActiveCucumber
     end
 
     # Returns the FactoryBot version of this Creator's attributes
-    def factorygirl_attributes
+    #
+    # @return [Hash] Processed attributes ready for FactoryBot
       symbolize_attributes!
       @attributes.each do |key, value|
         next unless respond_to?(method = method_name(key))

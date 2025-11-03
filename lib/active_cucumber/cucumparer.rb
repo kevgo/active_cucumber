@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 module ActiveCucumber
-  # provides Mortadella instances of the given database content
+  # Provides Mortadella instances of the given database content for comparison
   class Cucumparer
+    # @param database_content [Class, ActiveRecord::Relation, Array] The ActiveRecord class, relation, or array of records
+    # @param cucumber_table [Cucumber::Core::Ast::DataTable] The Cucumber table to compare against
+    # @param context [Hash] Optional context values passed to Cucumberator instances
     def initialize(database_content, cucumber_table, context)
       @database_content = database_content
       @cucumber_table = cucumber_table
@@ -10,6 +13,8 @@ module ActiveCucumber
     end
 
     # Returns all entries in the database as a horizontal Mortadella table
+    #
+    # @return [Mortadella::Horizontal] A Mortadella table representing all database records
     def to_horizontal_table
       mortadella = Mortadella::Horizontal.new headers: @cucumber_table.headers
       @database_content = @database_content.all if @database_content.respond_to? :all
@@ -23,6 +28,9 @@ module ActiveCucumber
     end
 
     # Returns the given object as a vertical Mortadella table
+    #
+    # @param object [ActiveRecord::Base] The ActiveRecord instance to convert
+    # @return [Mortadella::Vertical] A Mortadella table representing the record
     def to_vertical_table(object)
       mortadella = Mortadella::Vertical.new
       cucumberator = cucumberator_for object
