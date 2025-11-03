@@ -10,12 +10,12 @@ task default: [:lint, :features]
 
 desc "Fix all auto-fixable issues"
 task "fix" do
-  sh "bundle exec rubocop -A lib/*.rb lib/**/*.rb active_cucumber.gemspec"
-  sh "dprint fmt"
+  sh "bundle exec rubocop -A lib/*.rb lib/**/*.rb active_cucumber.gemspec", verbose: false
+  sh "dprint fmt", verbose: false
 end
 
 desc "Run linters"
 task "lint" do
-  sh "bundle exec rubocop lib/*.rb lib/**/*.rb active_cucumber.gemspec"
-  sh "dprint check"
+  sh "bundle exec rubocop lib/*.rb lib/**/*.rb active_cucumber.gemspec", verbose: false
+  sh "dprint check", verbose: false
 end
