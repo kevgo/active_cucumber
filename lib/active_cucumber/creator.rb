@@ -15,7 +15,7 @@ module ActiveCucumber
     end
 
     # Returns the FactoryBot version of this Creator's attributes
-    def factorygirl_attributes
+    def factorybot_attributes
       symbolize_attributes!
       @attributes.each do |key, value|
         next unless respond_to?(method = method_name(key))
