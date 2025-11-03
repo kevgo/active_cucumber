@@ -10,7 +10,7 @@ module ActiveCucumber
     end
 
     def attributes_for(attributes)
-      @creator_class.new(attributes, @context).factorygirl_attributes
+      @creator_class.new(attributes, @context).factorybot_attributes
     end
 
     # Creates all entries in the given horizontal table hash
@@ -23,7 +23,7 @@ module ActiveCucumber
     # Creates a new record with the given attributes in the database
     def create_record(attributes)
       creator = @creator_class.new attributes, @context
-      FactoryBot.create @clazz.name.underscore.to_sym, creator.factorygirl_attributes
+      FactoryBot.create @clazz.name.underscore.to_sym, creator.factorybot_attributes
     end
 
     private
