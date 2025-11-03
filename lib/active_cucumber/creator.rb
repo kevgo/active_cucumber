@@ -48,7 +48,10 @@ module ActiveCucumber
     end
 
     def normalized_value(value)
-      value.blank? ? nil : value
+      return nil if value.nil?
+      return nil if value.respond_to?(:blank?) && value.blank?
+
+      value
     end
 
     def respond_to_missing? method_name, *arguments
