@@ -54,8 +54,8 @@ module ActiveCucumber
       value
     end
 
-    def respond_to_missing? method_name, *arguments
-      super
+    def respond_to_missing?(method_name, include_private = false)
+      @attributes.respond_to?(method_name, include_private) || super
     end
 
     # Makes the keys on @attributes be normalized symbols
