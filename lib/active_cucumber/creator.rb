@@ -26,6 +26,7 @@ module ActiveCucumber
           @attributes.delete key
         end
       end
+      @attributes
     end
 
     private
