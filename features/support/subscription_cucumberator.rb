@@ -2,7 +2,7 @@
 
 class SubscriptionCucumberator < ActiveCucumber::Cucumberator
   def value_for_show
-    show.try :name
+    show&.name
   end
 
   def value_for_subscriber

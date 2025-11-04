@@ -2,7 +2,7 @@
 
 class ShowCucumberator < ActiveCucumber::Cucumberator
   def value_for_director
-    director.try :name
+    director&.name
   end
 
   def value_for_genre
