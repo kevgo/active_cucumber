@@ -31,10 +31,10 @@ module ActiveCucumber
 
     private
 
-    def method_missing(method_name)
+    def method_missing(method_name, *arguments, &block)
       # This is necessary so that a Cucumberator subclass can access
       # attributes of @object as if they were its own.
-      @object.send method_name
+      @object.send(method_name, *arguments, &block)
     end
 
     # Converts the key given in Cucumber format into the format used to
@@ -43,8 +43,8 @@ module ActiveCucumber
       key.to_s.downcase.parameterize.underscore
     end
 
-    def respond_to_missing? method_name, *arguments
-      super
+    def respond_to_missing?(method_name, include_private = false)
+      @object.respond_to?(method_name, include_private) || super
     end
 
     # Returns the name of the value_of_* method for the given key
