@@ -155,7 +155,7 @@ DEPENDENCIES
   rspec
   rspec-collection_matchers
   rubocop
-  simplecov
+  simplecov (~> 0.22)
   sqlite3
 
 BUNDLED WITH
