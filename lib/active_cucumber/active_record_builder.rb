@@ -24,6 +24,13 @@ module ActiveCucumber
     def create_record(attributes)
       creator = @creator_class.new attributes, @context
       FactoryBot.create @clazz.name.underscore.to_sym, creator.factorybot_attributes
+    rescue ActiveRecord::RecordInvalid => e
+      raise ActiveRecord::RecordInvalid,
+            "Failed to create #{@clazz.name} with attributes #{attributes.inspect}: #{e.message}"
+    rescue ArgumentError => e
+      factory_name = @clazz.name.underscore
+      raise ArgumentError, "Failed to create #{@clazz.name}: #{e.message}. " \
+                           "Make sure a FactoryBot factory is defined for :#{factory_name}"
     end
 
     private
@@ -32,6 +39,9 @@ module ActiveCucumber
     def creator_class
       creator_class_name.constantize
     rescue NameError
+      # Custom Creator class not found, using default Creator
+      warn "ActiveCucumber: #{creator_class_name} not found, using default. " \
+           "To customize, define #{creator_class_name} < ActiveCucumber::Creator."
       Creator
     end
 

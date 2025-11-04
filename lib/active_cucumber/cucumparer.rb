@@ -11,6 +11,8 @@ module ActiveCucumber
 
     # Returns all entries in the database as a horizontal Mortadella table
     def to_horizontal_table
+      raise ArgumentError, "No headers provided in Cucumber table" if @cucumber_table.headers.empty?
+
       mortadella = Mortadella::Horizontal.new headers: @cucumber_table.headers
       @database_content = @database_content.all if @database_content.respond_to? :all
       @database_content.each do |record|
@@ -38,6 +40,10 @@ module ActiveCucumber
     def cucumberator_class(object)
       cucumberator_class_name(object).constantize
     rescue NameError
+      # Custom Cucumberator class not found, using default Cucumberator
+      class_name = cucumberator_class_name(object)
+      warn "ActiveCucumber: #{class_name} not found, using default. " \
+           "To customize, define #{class_name} < ActiveCucumber::Cucumberator."
       Cucumberator
     end
 
