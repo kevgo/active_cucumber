@@ -18,12 +18,15 @@ module ActiveCucumber
     # rubocop:disable Metrics/MethodLength
     def factorybot_attributes
       symbolize_attributes!
-      keys_to_process = @attributes.keys
+      # Capture original keys and values before any transformations
+      # to ensure each value_for_* method receives the original value
+      original_attributes = @attributes.dup
+      keys_to_process = original_attributes.keys
       keys_to_process.each do |key|
         method = method_name(key)
         next unless respond_to?(method)
 
-        value = @attributes[key]
+        value = original_attributes[key]
         result = send(method, value)
 
         # Keep the transformed value if it's truthy or if the original was nil
