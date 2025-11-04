@@ -34,7 +34,11 @@ module ActiveCucumber
     def method_missing(method_name, *arguments, &block)
       # This is necessary so that a Cucumberator subclass can access
       # attributes of @object as if they were its own.
-      @object.send(method_name, *arguments, &block)
+      if @object.respond_to?(method_name, true)
+        @object.send(method_name, *arguments, &block)
+      else
+        super
+      end
     end
 
     # Converts the key given in Cucumber format into the format used to
