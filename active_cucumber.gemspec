@@ -18,4 +18,10 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 2.7"
   gem.metadata["rubygems_mfa_required"] = "true"
+
+  # Runtime dependencies
+  gem.add_dependency "activerecord", ">= 6.0"
+  gem.add_dependency "cucumber", ">= 7.0"
+  gem.add_dependency "factory_bot", ">= 5.0"
+  gem.add_dependency "mortadella", ">= 1.0"
 end
