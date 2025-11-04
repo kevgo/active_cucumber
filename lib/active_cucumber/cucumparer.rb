@@ -40,10 +40,6 @@ module ActiveCucumber
     def cucumberator_class(object)
       cucumberator_class_name(object).constantize
     rescue NameError
-      # Custom Cucumberator class not found, using default Cucumberator
-      class_name = cucumberator_class_name(object)
-      warn "ActiveCucumber: #{class_name} not found, using default. " \
-           "To customize, define #{class_name} < ActiveCucumber::Cucumberator."
       Cucumberator
     end
 
