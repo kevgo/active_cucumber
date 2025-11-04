@@ -34,7 +34,7 @@ module ActiveCucumber
     def method_missing(method_name, *arguments, &block)
       # This is necessary so that a Creator subclass can access
       # methods of @attributes as if they were its own.
-      if @attributes.respond_to?(method_name)
+      if @attributes.respond_to?(method_name, true)
         @attributes.send(method_name, *arguments, &block)
       else
         super
