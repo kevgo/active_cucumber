@@ -15,7 +15,11 @@ When(/^running "([^"]+)" with this table:$/) do |code, table|
   @previous_table = table
   begin
     @error_happened = false
-    @result = eval code
+    # rubocop:disable Security/Eval
+    # Eval is used here to test the ActiveCucumber framework itself.
+    # The code strings are hardcoded in feature files under developer control.
+    @result = eval(code, binding, __FILE__, __LINE__)
+    # rubocop:enable Security/Eval
   rescue StandardError => e
     @error_happened = true
     @error_message = e.message
@@ -28,7 +32,11 @@ Then(/^"(.*?)" does not have a director$/) do |show_name|
 end
 
 Then(/^it returns the hash$/) do |hash_string|
-  expect(@result).to match eval hash_string
+  # rubocop:disable Security/Eval
+  # Eval is necessary to evaluate Ruby hash literals containing database lookups.
+  # Hash strings are hardcoded in feature files under developer control.
+  expect(@result).to match eval(hash_string, binding, __FILE__, __LINE__)
+  # rubocop:enable Security/Eval
 end
 
 Then(/^the database contains no (episodes|shows)$/) do |class_name|
