@@ -5,7 +5,7 @@ PATH
       activerecord (>= 6.0)
       cucumber (>= 7.0)
       factory_bot (>= 5.0)
-      mortadella (~> 1.0)
+      mortadella (>= 1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -155,7 +155,7 @@ DEPENDENCIES
   rspec
   rspec-collection_matchers
   rubocop
-  simplecov (~> 0.22)
+  simplecov
   sqlite3
 
 BUNDLED WITH
