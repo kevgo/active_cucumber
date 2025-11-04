@@ -34,7 +34,11 @@ module ActiveCucumber
     def method_missing method_name, *arguments
       # This is necessary so that a Creator subclass can access
       # methods of @attributes as if they were its own.
-      @attributes.send method_name, *arguments
+      if @attributes.respond_to?(method_name)
+        @attributes.send method_name, *arguments
+      else
+        super
+      end
     end
 
     # Returns the name of the value_for method for the given key
@@ -54,8 +58,8 @@ module ActiveCucumber
       value
     end
 
-    def respond_to_missing? method_name, *arguments
-      super
+    def respond_to_missing?(method_name, include_private = false)
+      @attributes.respond_to?(method_name, include_private) || super
     end
 
     # Makes the keys on @attributes be normalized symbols
