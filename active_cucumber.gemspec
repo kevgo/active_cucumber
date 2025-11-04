@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |gem|
   gem.name          = "active_cucumber"
-  gem.version       = "1.0.0"
+  gem.version       = "1.1.0"
   gem.authors       = ["Kevin Goslar"]
   gem.email         = ["kevin.goslar@gmail.com"]
   gem.summary       = "ActiveRecord tools for Cucumber"
