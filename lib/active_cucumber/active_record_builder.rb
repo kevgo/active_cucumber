@@ -28,14 +28,14 @@ module ActiveCucumber
 
     private
 
-    # Returns the Cucumberator subclass to be used by this Cucumparer instance
+    # Returns the Creator subclass to be used by this ActiveRecordBuilder instance.
     def creator_class
       creator_class_name.constantize
     rescue NameError
       Creator
     end
 
-    # Returns the name of the Cucumberator subclass to be used by this Cucumparer instance.
+    # Returns the name of the Creator subclass to be used by this ActiveRecordBuilder instance.
     def creator_class_name
       "#{@clazz.name}Creator"
     end
