@@ -31,11 +31,11 @@ module ActiveCucumber
 
     private
 
-    def method_missing(method_name, *arguments, &block)
+    def method_missing(method_name, *, &)
       # This is necessary so that a Cucumberator subclass can access
       # attributes of @object as if they were its own.
       if @object.respond_to?(method_name, true)
-        @object.send(method_name, *arguments, &block)
+        @object.send(method_name, *, &)
       else
         super
       end
