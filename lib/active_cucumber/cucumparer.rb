@@ -36,7 +36,7 @@ module ActiveCucumber
 
     private
 
-    # Returns the Cucumberator subclass to be used by this Cucumparer instance
+    # Returns the Cucumberator subclass to be used by this Cucumparer instance.
     def cucumberator_class(object)
       cucumberator_class_name(object).constantize
     rescue NameError
