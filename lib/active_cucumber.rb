@@ -72,6 +72,22 @@ module ActiveCucumber
   end
 
   # @api private
+  def self.validate_activerecord_class_or_collection!(value)
+    # Allow ActiveRecord class, array of instances, or ActiveRecord relation/association
+    return if value.is_a?(Class) && value < ActiveRecord::Base
+    return if value.is_a?(Array) || value.respond_to?(:all)
+
+    raise TypeError, "Expected an ActiveRecord class or collection, got #{value.class}"
+  end
+
+  # @api private
+  def self.validate_activerecord_instance!(object)
+    return if object.is_a?(ActiveRecord::Base)
+
+    raise TypeError, "Expected an ActiveRecord instance, got #{object.class}"
+  end
+
+  # @api private
   def self.validate_context!(context)
     return if context.is_a?(Hash)
 
