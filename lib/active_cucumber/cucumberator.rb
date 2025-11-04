@@ -35,7 +35,7 @@ module ActiveCucumber
       # This is necessary so that a Cucumberator subclass can access
       # attributes of @object as if they were its own.
       if @object.respond_to?(method_name)
-        @object.send(method_name, *arguments)
+        @object.send(method_name, *arguments, &block)
       else
         super
       end
