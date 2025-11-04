@@ -43,9 +43,6 @@ module ActiveCucumber
     def creator_class
       creator_class_name.constantize
     rescue NameError
-      # Custom Creator class not found, using default Creator
-      warn "ActiveCucumber: #{creator_class_name} not found, using default. " \
-           "To customize, define #{creator_class_name} < ActiveCucumber::Creator."
       Creator
     end
 
