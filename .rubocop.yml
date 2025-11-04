@@ -9,8 +9,8 @@ AllCops:
 Layout/LineLength:
   Max: 100
 
-Security/Eval:
-  Enabled: false
+# Security/Eval is enabled globally. Specific eval usage in test step definitions
+# is documented with inline rubocop:disable comments explaining the justification.
 
 Style/Documentation:
   Exclude:

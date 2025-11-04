@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in mortadella.gemspec
+# Specify your gem's dependencies in active_cucumber.gemspec
 gemspec
 
 gem "activerecord"
