@@ -11,6 +11,8 @@ module ActiveCucumber
 
     # Returns all entries in the database as a horizontal Mortadella table
     def to_horizontal_table
+      raise ArgumentError, "No headers provided in Cucumber table" if @cucumber_table.headers.empty?
+
       mortadella = Mortadella::Horizontal.new headers: @cucumber_table.headers
       @database_content = @database_content.all if @database_content.respond_to? :all
       @database_content.each do |record|
