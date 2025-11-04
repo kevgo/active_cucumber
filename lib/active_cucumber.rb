@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "active_record"
 require "active_cucumber/cucumparer"
 require "active_cucumber/cucumberator"
 require "active_cucumber/active_record_builder"
