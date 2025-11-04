@@ -14,7 +14,7 @@ module ActiveCucumber
       end
     end
 
-    # Returns the FactoryBot version of this Creator's attributes
+    # Returns the FactoryBot version of this Creator's attributes.
     def factorybot_attributes
       symbolize_attributes!
       @attributes.each do |key, value|
