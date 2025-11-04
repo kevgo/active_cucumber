@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## 0.3.0 (2025-11-04)
 
 - Update required Ruby version to >= 3.2
 - Use modern Ruby features
