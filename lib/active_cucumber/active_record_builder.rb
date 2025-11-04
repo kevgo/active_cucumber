@@ -23,14 +23,18 @@ module ActiveCucumber
     # Creates a new record with the given attributes in the database
     def create_record(attributes)
       creator = @creator_class.new attributes, @context
-      FactoryBot.create @clazz.name.underscore.to_sym, creator.factorybot_attributes
-    rescue ActiveRecord::RecordInvalid => e
-      raise ActiveRecord::RecordInvalid,
-            "Failed to create #{@clazz.name} with attributes #{attributes.inspect}: #{e.message}"
-    rescue ArgumentError => e
-      factory_name = @clazz.name.underscore
-      raise ArgumentError, "Failed to create #{@clazz.name}: #{e.message}. " \
-                           "Make sure a FactoryBot factory is defined for :#{factory_name}"
+      factorybot_attributes = creator.factorybot_attributes
+      factory_name = @clazz.name.underscore.to_sym
+      begin
+        FactoryBot.create factory_name, factorybot_attributes
+      rescue ActiveRecord::RecordInvalid => e
+        record = e.record || @clazz.new
+        raise ActiveRecord::RecordInvalid.new(record,
+              "Failed to create #{@clazz.name} with attributes #{attributes.inspect}: #{e.message}")
+      rescue ArgumentError => e
+        raise ArgumentError, "Failed to create #{@clazz.name}: #{e.message}. " \
+                             "Make sure a FactoryBot factory is defined for :#{factory_name}"
+      end
     end
 
     private
