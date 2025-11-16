@@ -58,7 +58,7 @@ module ActiveCucumber
 
     # Converts the key given in Cucumber format into FactoryBot format
     def normalized_key(key)
-      key.downcase.parameterize.underscore.to_sym
+      key.to_s.downcase.parameterize.underscore.to_sym
     end
 
     # Converts blank values to nil for consistency
