@@ -36,7 +36,7 @@ module ActiveCucumber
     validate_activerecord_class!(activerecord_class)
     validate_context!(context)
     builder = ActiveRecordBuilder.new(activerecord_class, context)
-    builder.create_many(horizontal_table(cucumber_table))
+    builder.create_many(ActiveCucumber.horizontal_table(cucumber_table))
   end
 
   # Creates an entry of the given ActiveRecord class
