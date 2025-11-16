@@ -7,7 +7,7 @@ require "cucumber/rake/task"
 
 Cucumber::Rake::Task.new :features
 
-# Runs all tests
+desc "Run all tests"
 task test: [:lint, :features]
 
 task default: :test
