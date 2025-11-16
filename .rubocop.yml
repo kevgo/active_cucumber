@@ -7,7 +7,7 @@ AllCops:
   SuggestExtensions: false
 
 Layout/LineLength:
-  Max: 100
+  Max: 120
 
 # Security/Eval is enabled globally. Specific eval usage in test step definitions
 # is documented with inline rubocop:disable comments explaining the justification.
