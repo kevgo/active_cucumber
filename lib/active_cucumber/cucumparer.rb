@@ -27,9 +27,9 @@ module ActiveCucumber
     # Returns the given object as a vertical Mortadella table
     def to_vertical_table(object)
       mortadella = Mortadella::Vertical.new
-      cucumberator = cucumberator_for object
+      cucumberator = cucumberator_for(object)
       @cucumber_table.rows_hash.each_key do |key|
-        mortadella[key] = cucumberator.value_for key
+        mortadella[key] = cucumberator.value_for(key)
       end
       mortadella.table
     end
@@ -50,7 +50,7 @@ module ActiveCucumber
 
     # Returns the Cucumberator object for the given ActiveRecord instance
     def cucumberator_for(object)
-      cucumberator_class(object).new object, @context
+      cucumberator_class(object).new(object, @context)
     end
   end
 end

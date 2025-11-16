@@ -16,13 +16,13 @@ module ActiveCucumber
     # Creates all entries in the given horizontal table hash
     def create_many(table)
       table.map do |row|
-        create_record row
+        create_record(row)
       end
     end
 
     # Creates a new record with the given attributes in the database
     def create_record(attributes)
-      creator = @creator_class.new attributes, @context
+      creator = @creator_class.new(attributes, @context)
       factorybot_attributes = creator.factorybot_attributes
       factory_name = @clazz.name.underscore.to_sym
       create_with_factory(factory_name, factorybot_attributes, attributes)
@@ -32,7 +32,7 @@ module ActiveCucumber
 
     # Creates a record using FactoryBot with error handling
     def create_with_factory(factory_name, factorybot_attributes, attributes)
-      FactoryBot.create factory_name, factorybot_attributes
+      FactoryBot.create(factory_name, factorybot_attributes)
     rescue ActiveRecord::RecordInvalid => e
       record = e.record || @clazz.new
       raise ActiveRecord::RecordInvalid.new(record,
