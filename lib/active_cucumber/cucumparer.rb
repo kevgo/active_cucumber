@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ActiveCucumber
-  # provides Mortadella instances of the given database content
+  # Converts database content to Mortadella tables for comparison with Cucumber tables.
   class Cucumparer
     def initialize(database_content, cucumber_table, context)
       @database_content = database_content
@@ -36,19 +36,19 @@ module ActiveCucumber
 
     private
 
-    # Returns the Cucumberator subclass to be used by this Cucumparer instance.
+    # Provides the Cucumberator class to use for the given object.
     def cucumberator_class(object)
       cucumberator_class_name(object).constantize
     rescue NameError
       Cucumberator
     end
 
-    # Returns the name of the Cucumberator subclass to be used by this Cucumparer instance.
+    # Provides the name of the Cucumberator subclass for the given object
     def cucumberator_class_name(object)
       "#{object.class.name}Cucumberator"
     end
 
-    # Returns the Cucumberator object for the given ActiveRecord instance
+    # Provides a Cucumberator instance for the given ActiveRecord object
     def cucumberator_for(object)
       cucumberator_class(object).new(object, @context)
     end
