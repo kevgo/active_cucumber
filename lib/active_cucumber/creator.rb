@@ -9,43 +9,55 @@ module ActiveCucumber
 
     def initialize(attributes, context)
       @attributes = attributes
-      context.each do |key, value|
-        instance_variable_set "@#{key}", value
-      end
+      assign_context_variables(context)
     end
 
     # Returns the FactoryBot version of this Creator's attributes.
-    # rubocop:disable Metrics/MethodLength
     def factorybot_attributes
-      symbolize_attributes!
-      # Capture original keys and values before any transformations
-      # to ensure each value_for_* method receives the original value
-      original_attributes = @attributes.dup
-      keys_to_process = original_attributes.keys
-      keys_to_process.each do |key|
-        method = method_name(key)
-        next unless respond_to?(method)
-
-        value = original_attributes[key]
-        result = send(method, value)
-
-        # Keep the transformed value if it's truthy or if the original was nil
-        # Check if key still exists (value_for_* method may have deleted it)
-        if result || value.nil?
-          @attributes[key] = result if @attributes.key?(key)
-        else
-          @attributes.delete(key)
-        end
-      end
+      normalize_attributes!
+      apply_value_transformations!
       @attributes
     end
-    # rubocop:enable Metrics/MethodLength
 
     private
 
+    # Assigns context hash values as instance variables
+    def assign_context_variables(context)
+      context.each do |key, value|
+        instance_variable_set("@#{key}", value)
+      end
+    end
+
+    # Applies value_for_* transformations to attributes
+    def apply_value_transformations!
+      original_attributes = @attributes.dup
+
+      original_attributes.each do |key, original_value|
+        apply_transformation_for(key, original_value)
+      end
+    end
+
+    # Applies a single value_for_* transformation for the given key
+    def apply_transformation_for(key, original_value)
+      transformer_method = "value_for_#{key}"
+      return unless respond_to?(transformer_method)
+
+      transformed_value = send(transformer_method, original_value)
+      update_or_delete_attribute(key, transformed_value, original_value)
+    end
+
+    # Updates or deletes an attribute based on the transformation result
+    def update_or_delete_attribute(key, transformed_value, original_value)
+      return unless @attributes.key?(key)
+
+      if transformed_value || original_value.nil?
+        @attributes[key] = transformed_value
+      else
+        @attributes.delete(key)
+      end
+    end
+
     def method_missing(method_name, *, &)
-      # This is necessary so that a Creator subclass can access
-      # methods of @attributes as if they were its own.
       if @attributes.respond_to?(method_name, true)
         @attributes.send(method_name, *, &)
       else
@@ -53,14 +65,9 @@ module ActiveCucumber
       end
     end
 
-    # Returns the name of the value_for method for the given key
-    def method_name(key)
-      "value_for_#{key}"
-    end
-
     # Converts the key given in Cucumber format into FactoryBot format
     def normalized_key(key)
-      key.downcase.parameterize.underscore.to_sym
+      key.to_s.downcase.parameterize.underscore.to_sym
     end
 
     # Converts blank values to nil for consistency
@@ -76,6 +83,9 @@ module ActiveCucumber
     end
 
     # Normalizes keys to symbols and blank values to nil
+    def normalize_attributes!
+      @attributes = @attributes.each_with_object({}) do |(key, value), result|
+        result[normalized_key(key)] = normalized_value(value)
       end
     end
   end
