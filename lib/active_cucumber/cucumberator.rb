@@ -53,7 +53,7 @@ module ActiveCucumber
 
     # Returns the name of the value_of_* method for the given key
     def value_method_name(key)
-      "value_for_#{normalized_key key}"
+      "value_for_#{normalized_key(key)}"
     end
   end
 end
