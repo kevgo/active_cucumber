@@ -5,12 +5,11 @@ module ActiveCucumber
   class ActiveRecordBuilder
     def initialize(activerecord_class, context)
       @activerecord_class = activerecord_class
-      @creator_class = creator_class
       @context = context
     end
 
     def attributes_for(attributes)
-      @creator_class.new(attributes, @context).factorybot_attributes
+      creator_class.new(attributes, @context).factorybot_attributes
     end
 
     # Creates all entries in the given horizontal table hash
@@ -41,9 +40,11 @@ module ActiveCucumber
 
     # Returns the Creator subclass to be used by this ActiveRecordBuilder instance.
     def creator_class
-      creator_class_name.constantize
-    rescue NameError
-      Creator
+      @creator_class ||= begin
+        creator_class_name.constantize
+      rescue NameError
+        Creator
+      end
     end
 
     # Returns the name of the Creator subclass to be used by this ActiveRecordBuilder instance.
