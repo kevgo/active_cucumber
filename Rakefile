@@ -6,7 +6,11 @@ require "cucumber"
 require "cucumber/rake/task"
 
 Cucumber::Rake::Task.new :features
-task default: [:lint, :features]
+
+task test: [:lint, :features]
+
+task default: :test
+
 
 desc "Fix all auto-fixable issues"
 task "fix" do
