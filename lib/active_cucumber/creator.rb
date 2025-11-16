@@ -15,7 +15,6 @@ module ActiveCucumber
     end
 
     # Returns the FactoryBot version of this Creator's attributes.
-    # rubocop:disable Metrics/MethodLength
     def factorybot_attributes
       symbolize_attributes!
       # Capture original keys and values before any transformations
@@ -39,7 +38,6 @@ module ActiveCucumber
       end
       @attributes
     end
-    # rubocop:enable Metrics/MethodLength
 
     private
 

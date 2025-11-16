@@ -9,6 +9,9 @@ AllCops:
 Layout/LineLength:
   Max: 100
 
+Metrics/MethodLength:
+  Max: 20
+
 # Security/Eval is enabled globally. Specific eval usage in test step definitions
 # is documented with inline rubocop:disable comments explaining the justification.
 
