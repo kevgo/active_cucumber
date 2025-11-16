@@ -20,7 +20,7 @@ module ActiveCucumber
     validate_activerecord_class!(activerecord_class)
     validate_context!(context)
     builder = ActiveRecordBuilder.new(activerecord_class, context)
-    builder.attributes_for(vertical_table(cucumber_table))
+    builder.attributes_for(ActiveCucumber.vertical_table(cucumber_table))
   end
 
   # Creates entries of the given ActiveRecord class
@@ -36,7 +36,7 @@ module ActiveCucumber
     validate_activerecord_class!(activerecord_class)
     validate_context!(context)
     builder = ActiveRecordBuilder.new(activerecord_class, context)
-    builder.create_many(horizontal_table(cucumber_table))
+    builder.create_many(ActiveCucumber.horizontal_table(cucumber_table))
   end
 
   # Creates an entry of the given ActiveRecord class
@@ -52,7 +52,7 @@ module ActiveCucumber
     validate_activerecord_class!(activerecord_class)
     validate_context!(context)
     builder = ActiveRecordBuilder.new(activerecord_class, context)
-    builder.create_record(vertical_table(cucumber_table))
+    builder.create_record(ActiveCucumber.vertical_table(cucumber_table))
   end
 
   # Verifies that the database table for the given ActiveRecord class
