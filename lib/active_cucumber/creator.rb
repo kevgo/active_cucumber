@@ -63,6 +63,7 @@ module ActiveCucumber
       key.downcase.parameterize.underscore.to_sym
     end
 
+    # Converts blank values to nil for consistency
     def normalized_value(value)
       return nil if value.nil?
       return nil if value.respond_to?(:blank?) && value.blank?
@@ -74,7 +75,7 @@ module ActiveCucumber
       @attributes.respond_to?(method_name, include_private) || super
     end
 
-    # Makes the keys on @attributes be normalized symbols
+    # Normalizes keys to symbols and blank values to nil
     def symbolize_attributes!
       @attributes = {}.tap do |result|
         @attributes.each do |key, value|

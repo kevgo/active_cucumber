@@ -6,6 +6,9 @@ module ActiveCucumber
   #
   # This class is used by default. You can subclass it to create
   # custom Cucumberators for your ActiveRecord classes.
+  #
+  # Subclasses can access ActiveRecord object methods directly because
+  # this class delegates missing methods to the decorated @object.
   class Cucumberator
     # object - the instance to decorate
     def initialize(object, context)

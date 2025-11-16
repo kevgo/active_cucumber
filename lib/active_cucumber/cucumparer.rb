@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ActiveCucumber
-  # provides Mortadella instances of the given database content
+  # converts database content to Mortadella tables for comparison with Cucumber tables
   class Cucumparer
     def initialize(database_content, cucumber_table, context)
       @database_content = database_content
@@ -9,7 +9,7 @@ module ActiveCucumber
       @context = context
     end
 
-    # Returns all entries in the database as a horizontal Mortadella table
+    # returns all entries in the database as a horizontal Mortadella table
     def to_horizontal_table
       raise ArgumentError, "No headers provided in Cucumber table" if @cucumber_table.headers.empty?
 
@@ -24,7 +24,7 @@ module ActiveCucumber
       mortadella.table
     end
 
-    # Returns the given object as a vertical Mortadella table
+    # returns the given object as a vertical Mortadella table
     def to_vertical_table(object)
       mortadella = Mortadella::Vertical.new
       cucumberator = cucumberator_for(object)
@@ -36,19 +36,19 @@ module ActiveCucumber
 
     private
 
-    # Returns the Cucumberator subclass to be used by this Cucumparer instance.
+    # provides the Cucumberator class to use for the given object
     def cucumberator_class(object)
       cucumberator_class_name(object).constantize
     rescue NameError
       Cucumberator
     end
 
-    # Returns the name of the Cucumberator subclass to be used by this Cucumparer instance.
+    # provides the name of the Cucumberator subclass for the given object
     def cucumberator_class_name(object)
       "#{object.class.name}Cucumberator"
     end
 
-    # Returns the Cucumberator object for the given ActiveRecord instance
+    # provides a Cucumberator instance for the given ActiveRecord object
     def cucumberator_for(object)
       cucumberator_class(object).new(object, @context)
     end
