@@ -35,7 +35,7 @@ module ActiveCucumber
       record = e.record || @activerecord_class.new
       raise ActiveRecord::RecordInvalid.new(record,
                                             "Failed to create #{@activerecord_class.name} with attributes " \
-                                            "#{attributes.inspect}: #{e.message}"
+                                            "#{attributes.inspect}: #{e.message}")
     rescue ArgumentError => e
       raise ArgumentError, "Failed to create #{@activerecord_class.name}: #{e.message}. " \
                            "Make sure a FactoryBot factory is defined for :#{factory_name}"
