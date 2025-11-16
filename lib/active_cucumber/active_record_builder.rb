@@ -5,12 +5,12 @@ module ActiveCucumber
   class ActiveRecordBuilder
     def initialize(activerecord_class, context)
       @clazz = activerecord_class
-      @creator_class = creator_class()
+      @creator_class = creator_class
       @context = context
     end
 
     def attributes_for(attributes)
-      @creator_class.new(attributes, @context).factorybot_attributes()
+      @creator_class.new(attributes, @context).factorybot_attributes
     end
 
     # Creates all entries in the given horizontal table hash
@@ -23,8 +23,8 @@ module ActiveCucumber
     # Creates a new record with the given attributes in the database
     def create_record(attributes)
       creator = @creator_class.new(attributes, @context)
-      factorybot_attributes = creator.factorybot_attributes()
-      factory_name = @clazz.name.underscore.to_sym()
+      factorybot_attributes = creator.factorybot_attributes
+      factory_name = @clazz.name.underscore.to_sym
       create_with_factory(factory_name, factorybot_attributes, attributes)
     end
 
@@ -34,7 +34,7 @@ module ActiveCucumber
     def create_with_factory(factory_name, factorybot_attributes, attributes)
       FactoryBot.create(factory_name, factorybot_attributes)
     rescue ActiveRecord::RecordInvalid => e
-      record = e.record || @clazz.new()
+      record = e.record || @clazz.new
       raise ActiveRecord::RecordInvalid.new(record,
                                             "Failed to create #{@clazz.name} with attributes " \
                                             "#{attributes.inspect}: #{e.message}")
@@ -44,14 +44,14 @@ module ActiveCucumber
     end
 
     # Returns the Creator subclass to be used by this ActiveRecordBuilder instance.
-    def creator_class()
-      creator_class_name.constantize()
+    def creator_class
+      creator_class_name.constantize
     rescue NameError
       Creator
     end
 
     # Returns the name of the Creator subclass to be used by this ActiveRecordBuilder instance.
-    def creator_class_name()
+    def creator_class_name
       "#{@clazz.name}Creator"
     end
   end
