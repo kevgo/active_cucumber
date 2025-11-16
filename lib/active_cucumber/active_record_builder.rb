@@ -32,7 +32,7 @@ module ActiveCucumber
 
     # Creates a record using FactoryBot with error handling
     def create_with_factory(factory_name, factorybot_attributes, attributes)
-      FactoryBot.create factory_name, factorybot_attributes
+      FactoryBot.create(factory_name, factorybot_attributes)
     rescue ActiveRecord::RecordInvalid => e
       record = e.record || @clazz.new
       raise ActiveRecord::RecordInvalid.new(record,
