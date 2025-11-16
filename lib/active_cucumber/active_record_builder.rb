@@ -15,9 +15,7 @@ module ActiveCucumber
 
     # Creates all entries in the given horizontal table hash
     def create_many(table)
-      table.map do |row|
-        create_record(row)
-      end
+      table.map { |row| create_record(row) }
     end
 
     # Creates a new record with the given attributes in the database
