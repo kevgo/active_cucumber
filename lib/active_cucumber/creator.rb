@@ -76,6 +76,11 @@ module ActiveCucumber
     end
 
     # Normalizes keys to symbols and blank values to nil
+    def symbolize_attributes!
+      @attributes = {}.tap do |result|
+        @attributes.each do |key, value|
+          result[normalized_key key] = normalized_value value
+        end
       end
     end
   end
