@@ -52,7 +52,7 @@ module ActiveCucumber
     validate_activerecord_class!(activerecord_class)
     validate_context!(context)
     builder = ActiveRecordBuilder.new(activerecord_class, context)
-    builder.create_record(vertical_table(cucumber_table))
+    builder.create_record(ActiveCucumber.vertical_table(cucumber_table))
   end
 
   # Verifies that the database table for the given ActiveRecord class
