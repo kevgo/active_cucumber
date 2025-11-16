@@ -19,7 +19,7 @@ module ActiveCucumber
 
     # Creates a new record with the given attributes in the database
     def create_record(attributes)
-      creator = @creator_class.new(attributes, @context)
+      creator = creator_class.new(attributes, @context)
       factorybot_attributes = creator.factorybot_attributes
       factory_name = @activerecord_class.name.underscore.to_sym
       create_with_factory(factory_name, factorybot_attributes, attributes)
